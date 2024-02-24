@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
+import 'virtual:windi.css'
+import 'virtual:windi-devtools'
 
 import App from './App.vue'
-import router from './router'
-import pinia from './stores/pinia'
+import globalRegister from './helpers/register'
 
 const app = createApp(App)
 
-app.use(pinia)
-app.use(router)
+globalRegister(app)
 
 app.mount('#app')
