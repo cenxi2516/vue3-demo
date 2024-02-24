@@ -20,7 +20,8 @@
 import { onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import SearchBar from './components/FullSearch/SearchBar.vue'
 import useSearch from './components/FullSearch/useSearch'
-import useZIndex from './hooks/useZIndex'
+import { useZIndex } from './hooks'
+import { to } from './utils'
 
 const visible = ref<boolean>(false)
 
@@ -45,9 +46,7 @@ const handleSearchBar = (e: KeyboardEvent) => {
   e.metaKey && e.key === 'k' && instance.show()
 }
 
-const {zIndex, increase, decrease} = useZIndex(modalRef)
-
-console.log(zIndex)
+const { zIndex, increase, decrease } = useZIndex(modalRef)
 
 onMounted(() => {
   window.addEventListener('keydown', handleSearchBar)
@@ -56,4 +55,13 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', handleSearchBar)
 })
+
+async function func4() {
+	const promise = Promise.resolve({ name: '123' });
+	const [err, data] = await to(promise);
+	console.log(err, data)
+	// null {name: '123'}
+}
+func4()
+
 </script>

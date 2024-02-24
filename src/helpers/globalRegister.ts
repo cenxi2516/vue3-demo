@@ -66,7 +66,7 @@ import {
   notification
 } from 'ant-design-vue'
 
-const globalRegister = (app: App<Element>) => {
+export const globalRegister = (app: App<Element>) => {
   app.use(pinia)
   app.use(router)
 
@@ -134,5 +134,3 @@ const globalRegister = (app: App<Element>) => {
   app.config.globalProperties.$message = message
   app.config.globalProperties.$notification = notification
 }
-
-export default globalRegister

@@ -3,7 +3,7 @@ import 'virtual:windi.css'
 import 'virtual:windi-devtools'
 
 import App from './App.vue'
-import globalRegister from './helpers/register'
+import { globalRegister } from './helpers'
 
 const app = createApp(App)
 

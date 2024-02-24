@@ -38,7 +38,7 @@ const _setDomZIndex = (domRef: TDomRef, curZIndex: number) => {
   }
 }
 
-const useZIndex: TUseZIndexFn = (domRef: TDomRef) => {
+export const useZIndex: TUseZIndexFn = (domRef: TDomRef) => {
   const zIndex = ref(map.get(domRef))
   const changeZIndex = (step: number, isStep = true) => {
     if (isStep) {
@@ -66,4 +66,3 @@ const useZIndex: TUseZIndexFn = (domRef: TDomRef) => {
   return { zIndex, increase, decrease }
 }
 
-export default useZIndex
