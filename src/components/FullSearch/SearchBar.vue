@@ -10,9 +10,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { nextTick, onMounted, ref, shallowRef, type CSSProperties } from 'vue'
-import { CloseOutlined } from '@ant-design/icons-vue'
-import { useZIndex } from '@/hooks'
+import { useZIndex } from '@/hooks';
+import { CloseOutlined } from '@ant-design/icons-vue';
+import { nextTick, onMounted, ref, shallowRef, type CSSProperties } from 'vue';
 
 const searchBarStyle: CSSProperties = {
   position: 'absolute',
