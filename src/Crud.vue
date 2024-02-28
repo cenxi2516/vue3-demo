@@ -3,16 +3,16 @@ import ColumnSort from '@/Crud/ColumnSort.vue'
 import { _warn } from '@/shared'
 import type { CProps, DProps, KV, RProps, UProps } from '@/types'
 import {
-CloudDownloadOutlined,
-DeleteOutlined,
-DownOutlined,
-EditOutlined,
-EyeOutlined,
-FullscreenOutlined,
-PlusOutlined,
-RedoOutlined,
-SearchOutlined,
-UpOutlined
+  CloudDownloadOutlined,
+  DeleteOutlined,
+  DownOutlined,
+  EditOutlined,
+  EyeOutlined,
+  FullscreenOutlined,
+  PlusOutlined,
+  RedoOutlined,
+  SearchOutlined,
+  UpOutlined
 } from '@ant-design/icons-vue'
 import { useFullscreen } from '@vueuse/core'
 import { message } from 'ant-design-vue'
