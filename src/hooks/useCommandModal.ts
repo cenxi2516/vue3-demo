@@ -1,17 +1,19 @@
 import {
 	createVNode,
 	getCurrentInstance,
+	readonly,
+	ref,
 	render,
 	type AppContext,
 	type Component,
 	type ComponentPublicInstance,
+	type Ref,
 	type VNode
 } from 'vue'
 
 export interface Options {
-  visible?: boolean // 控制弹窗组件打开和关闭
-  onClose?: () => void // 命令式关闭弹窗组件时，需要处理的业务逻辑
-  appendTo?: HTMLElement | string // 将弹窗组件添加到哪里
+  onClose?: () => void
+  appendTo?: HTMLElement | string
   [key: string]: unknown
 }
 
@@ -20,8 +22,7 @@ export interface CommandComponent {
   close: () => void
 }
 
-// 获取要添加到哪的真实DOM元素，默认为body元素
-const getAppendToElement = (props: Options): HTMLElement => {
+const _getAppendToElement = (props: Options): HTMLElement => {
   let appendTo: HTMLElement | null = document.body
 
   if (props.appendTo) {
@@ -39,8 +40,7 @@ const getAppendToElement = (props: Options): HTMLElement => {
   return appendTo
 }
 
-// 将组件生成真实DOM，并挂载到真实DOM元素上
-const initInstance = <T extends Component>(
+const _initInstance = <T extends Component>(
   Component: T,
   props: Options,
   container: HTMLElement,
@@ -49,12 +49,14 @@ const initInstance = <T extends Component>(
   const vNode = createVNode(Component, props)
   vNode.appContext = appContext
   render(vNode, container)
+  _getAppendToElement(props).appendChild(container)
 
-  getAppendToElement(props).appendChild(container)
   return vNode
 }
 
-export const useCommandModal = <T extends Component>(Component: T): CommandComponent => {
+export const useCommandModal = <T extends Component>(
+  Component: T
+): [Ref<boolean>, CommandComponent] => {
   const appContext = getCurrentInstance()?.appContext
   if (appContext) {
     const currentProvides = (getCurrentInstance() as any)?.provides
@@ -62,38 +64,45 @@ export const useCommandModal = <T extends Component>(Component: T): CommandCompo
   }
 
   const container = document.createElement('div')
+  const isVisible = ref(false)
 
-  const close = () => {
+  const _close = () => {
+    isVisible.value = false
     render(null, container)
     container.parentNode?.removeChild(container)
   }
 
-  const CommandModal = (options: Options): VNode => {
+  const _commandModal = (options: Options): VNode => {
+    isVisible.value = true
     if (!Reflect.has(options, 'visible')) {
       options.visible = true
     }
+
     if (typeof options.onClose !== 'function') {
-      options.onClose = close
+      options.onClose = _close
     } else {
       const originOnClose = options.onClose
       options.onClose = () => {
         originOnClose()
-        close()
+        _close()
       }
     }
-    const vNode = initInstance<T>(Component, options, container, appContext)
+
+    const vNode = _initInstance<T>(Component, options, container, appContext)
     const vm = vNode.component?.proxy as ComponentPublicInstance<Options>
+
     for (const prop in options) {
       if (Reflect.has(options, prop) && !Reflect.has(vm.$props, prop)) {
         vm[prop as keyof ComponentPublicInstance] = options[prop]
       }
     }
+
     return vNode
   }
 
-  CommandModal.close = close
+  _commandModal.close = _close
 
-  return CommandModal
+  return [readonly(isVisible), _commandModal]
 }
 
 export default useCommandModal

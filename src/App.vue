@@ -2,10 +2,10 @@
 import SearchBar from '@/components/FullSearch/SearchBar.vue'
 import { getContainer } from '@/utils'
 import CurdTable from '@/views/CurdTable.vue'
-import VueStudy from '@/views/VueStudy.vue'
+import ModalDemo from '@/views/ModalDemo.vue'
 import { useEventListener } from '@vueuse/core'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import useSearch from './components/FullSearch/useSearch'
 
 
@@ -16,6 +16,12 @@ useEventListener(window, 'keydown', (e) => {
 		instance.show()
 	}
 })
+
+watch(isShow, () => {
+	console.log(isShow);
+
+	if(!isShow.value) instance.destroy()
+})
 </script>
 
 <template>
@@ -25,8 +31,8 @@ useEventListener(window, 'keydown', (e) => {
         <a-tab-pane key="1" tab="CURD表格">
           <curd-table />
         </a-tab-pane>
-        <a-tab-pane key="2" tab="Vue实验" force-render>
-					<VueStudy />
+        <a-tab-pane key="2" tab="Modal实例" force-render>
+					<modal-demo />
 				</a-tab-pane>
         <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
       </a-tabs>

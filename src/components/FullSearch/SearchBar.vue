@@ -5,6 +5,7 @@
     :style="searchBarStyle"
     class="w-1/2 bg-red-200 p-2.5 searchbar"
   >
+		<p>{{ searchData }}</p>
     <a-input ref="inputRef" v-model:value="searchData" placeholder="Basic usage" />
     <close-outlined style="cursor: pointer" />
   </div>
