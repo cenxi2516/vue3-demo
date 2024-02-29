@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import SearchBar from '@/components/FullSearch/SearchBar.vue'
 import { getContainer } from '@/utils'
 import CurdTable from '@/views/CurdTable.vue'
+import VueStudy from '@/views/VueStudy.vue'
+import { useEventListener } from '@vueuse/core'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { ref } from 'vue'
+import useSearch from './components/FullSearch/useSearch'
+
 
 const activeKey = ref('1')
+const {isShow, instance} = useSearch(SearchBar)
+useEventListener(window, 'keydown', (e) => {
+	if(e.metaKey && e.key === 'k'){
+		instance.show()
+	}
+})
 </script>
 
 <template>
@@ -14,7 +25,9 @@ const activeKey = ref('1')
         <a-tab-pane key="1" tab="CURD表格">
           <curd-table />
         </a-tab-pane>
-        <a-tab-pane key="2" tab="Tab 2" force-render>Content of Tab Pane 2</a-tab-pane>
+        <a-tab-pane key="2" tab="Vue实验" force-render>
+					<VueStudy />
+				</a-tab-pane>
         <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
       </a-tabs>
     </div>

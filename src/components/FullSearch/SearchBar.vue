@@ -12,7 +12,8 @@
 <script setup lang="ts">
 import { useZIndex } from '@/hooks';
 import { CloseOutlined } from '@ant-design/icons-vue';
-import { nextTick, onMounted, ref, shallowRef, type CSSProperties } from 'vue';
+import { nextTick, ref, shallowRef, type CSSProperties } from 'vue';
+
 
 const searchBarStyle: CSSProperties = {
   position: 'absolute',
@@ -30,8 +31,6 @@ const inputRef = shallowRef<HTMLInputElement>()
 const searchData = ref<string>()
 
 const { zIndex, increase, decrease } = useZIndex(searchBarWrapperRef)
-
-onMounted(() => {})
 
 nextTick(() => {
   inputRef.value?.focus()
