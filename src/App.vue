@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SearchBar from '@/components/FullSearch/SearchBar.vue'
-import { getContainer } from '@/utils'
 import CurdTable from '@/views/CurdTable.vue'
 import ModalDemo from '@/views/ModalDemo.vue'
+import StudyVue from '@/views/StudyVue.vue'
 import { useEventListener } from '@vueuse/core'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { ref, watch } from 'vue'
@@ -25,16 +25,18 @@ watch(isShow, () => {
 </script>
 
 <template>
-  <a-config-provider :locale="zhCN" :getPopupContainer="getContainer">
+  <a-config-provider :locale="zhCN">
     <div class="p-4">
       <a-tabs v-model:activeKey="activeKey" class="px-10">
         <a-tab-pane key="1" tab="CURD表格">
-          <curd-table />
+          <CurdTable />
+        </a-tab-pane>
+        <a-tab-pane key="3" tab="Vue实验">
+          <StudyVue />
         </a-tab-pane>
         <a-tab-pane key="2" tab="Modal实例" force-render>
 					<modal-demo />
 				</a-tab-pane>
-        <a-tab-pane key="3" tab="Tab 3">Content of Tab Pane 3</a-tab-pane>
       </a-tabs>
     </div>
   </a-config-provider>

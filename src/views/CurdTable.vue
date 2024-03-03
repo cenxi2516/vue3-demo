@@ -332,7 +332,7 @@ const c = defineC({
 
 const u = defineU({
   drawerProps: {
-    getContainer: () => getContainer('.box'),
+    getContainer: () => getContainer('#box'),
     style: { position: 'absolute' }
   },
   async before(row) {
