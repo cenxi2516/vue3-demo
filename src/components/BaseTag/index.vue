@@ -1,0 +1,9 @@
+<template>
+	<a-tag>hello</a-tag>
+</template>
+
+<script setup lang="ts">
+
+</script>
+
+<style lang="scss" scoped></style>
