@@ -2,9 +2,7 @@
   <h1 class="title" align="center">crud-vue</h1>
   <p align="center">
     🚀"增删改查"更简单
-    <a-button type="link"
-      ><a href="https://github.com/any86/crud-vue" target="_new">⚡文档</a></a-button
-    >
+    <a-button type="link"><a href="https://github.com/any86/crud-vue" target="_new">⚡文档</a></a-button>
   </p>
 
   <div class="box" id="box">
@@ -17,12 +15,12 @@
       <template #row-buttons-before>
         <a-button type="link" @click="config">
           <tool-outlined />
-          配置</a-button
-        >
+          配置</a-button>
       </template>
     </crud>
   </div>
 </template>
+
 <script setup lang="ts">
 import Detail from '@/Detail.vue'
 import http from '@/http'
@@ -369,4 +367,5 @@ function config() {
   message.success('自定义按钮')
 }
 </script>
+
 <style lang="scss"></style>
