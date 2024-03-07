@@ -1,15 +1,14 @@
-export const calcStringSize = (inputString: string): number => {
-  let len = 0
+export const calcStringSize = (text: string): number => {
+  const strLen = text.length
+  let byteLen = strLen
 
-  for (let i = 0; i < inputString.length; i++) {
-    const c = inputString.charCodeAt(i)
+  for (let i = 0; i < strLen; i++) {
+    const c = text.charCodeAt(i)
 
-    if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
-      len++
-    } else {
-      len += 2
+    if (!((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f))) {
+      byteLen++
     }
   }
 
-  return len
+  return byteLen
 }
