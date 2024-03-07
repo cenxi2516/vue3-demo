@@ -1,6 +1,6 @@
 import { calcTextByte } from '@/utils'
 import { computed, nextTick, ref, type CSSProperties, type Ref } from 'vue'
-import { PER_BYTE_PX } from '../consts'
+import { DEFAULT_MIN_BYTE, PER_BYTE_PX } from '../consts'
 
 export const useTitleEllipsis = (
   limitByte: number,
@@ -18,7 +18,7 @@ export const useTitleEllipsis = (
 
   const cssStyle = computed(() => ({
     maxWidth: limitByte * fontSizeHalf.value + 'px',
-    minWidth: 4 * fontSizeHalf.value + 'px'
+    minWidth: DEFAULT_MIN_BYTE * fontSizeHalf.value + 'px'
   }))
 
   const handleTooltipVisibleChange = (visible: boolean) => {

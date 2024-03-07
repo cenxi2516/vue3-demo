@@ -32,3 +32,4 @@ export const TagToolTipDefaultProps = {
 
 export const PER_BYTE_PX = 6
 export const DEFAULT_MAX_BYTE = 10
+export const DEFAULT_MIN_BYTE = 4
