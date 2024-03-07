@@ -33,4 +33,3 @@ const handleDelete = (title: string, confirmDelete: TConfirmDeleteFn) => {
 }
 </script>
 
-<style lang="scss" scoped></style>

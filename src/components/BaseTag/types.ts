@@ -1,3 +1,5 @@
+import type { PopconfirmProps } from 'ant-design-vue'
+
 export enum PresetThemeEnum {
   GUEST = 'guest', // default
   CATER = 'cater',
@@ -23,9 +25,14 @@ export type TTagTheme = {
 export type TTheme = PresetThemeEnum | TTagTheme
 
 export type TTagProps = {
-  theme?: TTheme
   title: string
-  otherCompany?: boolean
+  theme?: TTheme
+  isOtherCompany?: boolean
   canSelected?: boolean
   canDeleted?: boolean
+  selected?: boolean
+  delConfirm?: boolean
+  popConfirmProps?: PopconfirmProps
 }
+
+export type TConfirmDeleteFn = () => Promise<void>

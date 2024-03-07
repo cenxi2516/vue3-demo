@@ -6,6 +6,7 @@ import ModalDemo from '@/views/ModalDemo.vue'
 import StudyVue from '@/views/StudyVue.vue'
 import { useEventListener } from '@vueuse/core'
 import { ref, watch } from 'vue'
+import BaseTagDemo from './BaseTagDemo.vue'
 
 
 const activeKey = ref('1')
@@ -34,6 +35,9 @@ watch(isShow, () => {
 			</a-tab-pane>
 			<a-tab-pane key="3" tab="Modal实例" force-render>
 				<modal-demo />
+			</a-tab-pane>
+			<a-tab-pane key="4" tab="tag封装" force-render>
+				<base-tag-demo />
 			</a-tab-pane>
 		</a-tabs>
 	</div>

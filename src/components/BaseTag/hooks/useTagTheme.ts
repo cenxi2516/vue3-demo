@@ -1,5 +1,5 @@
 import { computed, readonly, type CSSProperties, type Ref } from 'vue'
-import { PresetTheme, ReadonlyStyleKey, SelectedAndDeletedStyleKey } from '../consts'
+import { PRESET_THEME, ReadonlyStyleKey, SelectedAndDeletedStyleKey } from '../consts'
 import {
   PresetThemeEnum,
   TThemeFieldEnum,
@@ -27,12 +27,12 @@ const _setTagStyle = (tagStatus: TagStatusEnum, tagName: TTagTheme): CSSProperti
   }
 }
 
-export const useTheme = (
+export const useTagTheme = (
   theme: TTheme,
   tagStatus: Ref<TagStatusEnum>
 ): [CSSProperties, Readonly<CSSProperties>] => {
   const tagTheme = _isPresetTheme(theme)
-    ? PresetTheme[theme as PresetThemeEnum]
+    ? PRESET_THEME[theme as PresetThemeEnum]
     : (theme as TTagTheme)
 
   const tagStyle = computed<CSSProperties>(() => _setTagStyle(tagStatus.value, tagTheme))
