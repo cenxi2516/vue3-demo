@@ -24,3 +24,11 @@ export const TagPopConfirmDefaultProps = {
   okText: '确定',
   cancelText: '取消'
 }
+
+export const TagToolTipDefaultProps = {
+  placement: 'topLeft',
+  overlayClassName: 'base-tag-tooltip'
+}
+
+export const PER_BYTE_PX = 6
+export const DEFAULT_MAX_BYTE = 10
