@@ -76,7 +76,7 @@
     <br />
     <br />
     <br />
-    <base-tag></base-tag>
+    <base-tag title="我爱你" :canDeleted="false" :canSelected="false"></base-tag>
   </div>
 </template>
 
