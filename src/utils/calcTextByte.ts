@@ -1,4 +1,4 @@
-export const calcStringSize = (text: string): number => {
+export const calcTextByte = (text: string): number => {
   const strLen = text.length
   let byteLen = strLen
 

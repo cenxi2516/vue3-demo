@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { KV, NFormItem } from '@/types'
-import { calcStringSize } from '@/utils'
+import { calcTextByte } from '@/utils'
 import type { FormInstance, FormProps } from 'ant-design-vue'
 import { cloneDeep } from 'lodash-es'
 import { computed, ref, watch } from 'vue'
@@ -41,7 +41,7 @@ const labelCol = computed(() => {
   const labelSizes: number[] = []
   formItems.value.forEach(({ label }) => {
     if (label) {
-      labelSizes.push(calcStringSize(label))
+      labelSizes.push(calcTextByte(label))
     }
   })
   const max = Math.max(...labelSizes)
