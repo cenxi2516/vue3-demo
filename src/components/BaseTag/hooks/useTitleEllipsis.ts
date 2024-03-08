@@ -22,8 +22,6 @@ export const useTitleEllipsis = (
   }))
 
   const handleTooltipVisibleChange = (visible: boolean) => {
-    console.log(isEllipsis, tooltipVisible.value, visible)
-
     if (!isEllipsis) {
       tooltipVisible.value = false
     }

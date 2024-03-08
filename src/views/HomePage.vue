@@ -6,6 +6,7 @@ import ModalDemo from '@/views/ModalDemo.vue'
 import StudyVue from '@/views/StudyVue.vue'
 import { useEventListener } from '@vueuse/core'
 import { ref, watch } from 'vue'
+import AddTagModalDemo from './AddTagModalDemo.vue'
 import BaseTagDemo from './BaseTagDemo.vue'
 
 
@@ -38,6 +39,9 @@ watch(isShow, () => {
 			</a-tab-pane>
 			<a-tab-pane key="4" tab="tag封装" force-render>
 				<base-tag-demo />
+			</a-tab-pane>
+			<a-tab-pane key="5" tab="新增tag弹窗" force-render>
+				<add-tag-modal-demo />
 			</a-tab-pane>
 		</a-tabs>
 	</div>

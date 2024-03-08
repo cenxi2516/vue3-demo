@@ -1,3 +1,4 @@
+export * from './useAsyncConfirm'
 export * from './useAvoidFnRepeatInvoke'
 export * from './useConcurrentRequest'
 export * from './useExportExcelFile'
