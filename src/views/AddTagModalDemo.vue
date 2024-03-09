@@ -1,5 +1,5 @@
 <template>
-  <AddTagModal :visible="visible" @close="closeModal" />
+  <AddTagModal v-if="visible" :guestId="22323" :visible="visible" @close="closeModal" />
 
   <a-button type="primary" @click="showModal">新增标签</a-button>
 </template>

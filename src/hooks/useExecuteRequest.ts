@@ -2,18 +2,18 @@ import { to } from '@/utils'
 import { readonly, ref, type Ref } from 'vue'
 import { isRequestSuccess } from '../utils'
 
-export type IRES = {
+export interface IRES<T> {
   code: number
-  data: any
+  data: T
   msg: string
 }
 
-export const useAsyncConfirm = (
-  fetchAPI: () => Promise<IRES>
-): [Ref<boolean>, () => Promise<void>] => {
+export const useExecuteRequest = <T>(
+  fetchAPI: () => Promise<IRES<T>>
+): [Readonly<Ref<boolean>>, () => Promise<T>] => {
   const loading = ref(false)
 
-  const _fetchTask = async () => {
+  const _fetchTask = async (): Promise<T> => {
     loading.value = true
     const [error, res] = await to(fetchAPI())
     loading.value = false

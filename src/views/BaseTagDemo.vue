@@ -56,15 +56,15 @@
 </template>
 
 <script setup lang="ts">
-import BaseTag from '@/components/BaseTag/index.vue';
-import { PresetThemeEnum, type TConfirmDeleteFn } from '@/components/BaseTag/types';
-import { ref } from 'vue';
+import BaseTag from '@/components/BaseTag/index.vue'
+import { PresetThemeEnum, type TConfirmDeleteFn } from '@/components/BaseTag/types'
+import { ref } from 'vue'
 
 const tagSelected = ref(false)
 
 const handleSelect = (selected: boolean, title: string) => {}
 
-const handleDelete = (title: string, confirmDelete: TConfirmDeleteFn) => {
+const handleDelete = (confirmDelete: TConfirmDeleteFn) => {
   console.log('hello world')
   confirmDelete()
 }

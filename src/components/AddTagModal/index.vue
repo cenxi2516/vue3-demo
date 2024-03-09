@@ -1,18 +1,24 @@
 <template>
-  <a-modal :visible="props.visible" v-bind="totalProps" @ok="handleOk">
+  <a-modal
+    :visible="props.visible"
+    v-bind="totalProps"
+    @ok="handleOk"
+  >
     <template #title>{{ '新增标签' }}</template>
     <template #closeIcon><close-outlined @click="handleCancel" style="font-size: 14px" /></template>
-    <SearchTagArea />
-    <CommonTagArea />
-    <SelectedTagArea />
+    <a-spin :spinning="commonLibTagLoading">
+      <SearchTagArea />
+      <CommonTagArea :data="tagLibData" />
+      <SelectedTagArea :data="selectedGuestTagData" @delete="handleSelectedTagDelete" />
+    </a-spin>
     <template #footer>
       <a-space size="middle">
         <a-button v-bind="DEFAULT_BUTTON_PROPS" @click="handleCancel">取消</a-button>
         <a-button
-          :disabled="disabledAdd"
+          :disabled="!isCanAddGuestTag"
           v-bind="DEFAULT_BUTTON_PROPS"
           type="primary"
-          :loading="confirmLoading"
+          :loading="guestTagAddLoading"
           @click="handleOk"
           >确认</a-button
         >
@@ -22,17 +28,25 @@
 </template>
 
 <script setup lang="ts">
-import { useAsyncConfirm } from '@/hooks'
+import { addGuestTag } from '@/api/tag'
+import { useExecuteRequest } from '@/hooks'
+import { to } from '@/utils'
 import { CloseOutlined } from '@ant-design/icons-vue'
+import { Modal, message } from 'ant-design-vue'
 import { omit } from 'lodash-es'
 import { computed } from 'vue'
 import CommonTagArea from './components/CommonTagArea.vue'
 import SearchTagArea from './components/SearchTagArea.vue'
 import SelectedTagArea from './components/SelectedTagArea.vue'
-import { DEFAULT_BUTTON_PROPS, DEFAULT_MODAL_PROPS } from './consts'
-import { useAddGuestTag } from './hooks'
+import { DEFAULT_BUTTON_PROPS, DEFAULT_MODAL_PROPS, ModalConfirmConfig } from './consts'
+import { useAddGuestTag, useQueryTagLib } from './hooks'
 
-const props = defineProps<{ visible: boolean }>()
+export type TAddTagModalProps = {
+  visible: boolean
+  guestId: number
+}
+
+const props = defineProps<TAddTagModalProps>()
 
 const emit = defineEmits<{ (e: 'close'): void }>()
 
@@ -41,18 +55,39 @@ const totalProps = computed(() => ({
   ...omit(props, ['visible'])
 }))
 
-
-const [disabledAdd, handleAddGuestTag] = useAddGuestTag()
-const [confirmLoading, executeAddGuestTagTask] = useAsyncConfirm(handleAddGuestTag)
+const [commonLibTagLoading, tagLibData] = useQueryTagLib(props)
+const [selectedGuestTagData, handleSelectedTagDelete] = useAddGuestTag(tagLibData)
+const isCanAddGuestTag = computed(() => selectedGuestTagData.value.length)
+const [guestTagAddLoading, addTagToGuest] = useExecuteRequest(() =>
+  addGuestTag({
+    guestId: props.guestId,
+    preferLabelIdList: selectedGuestTagData.value.map((item) => item.labelId)
+  })
+)
 
 const closeModal = () => emit('close')
-
-const handleOk = () => {
-  closeModal()
+const handleOk = async () => {
+  const [error] = await to(addTagToGuest())
+  if (error === null) {
+    message.success('添加标签成功')
+    closeModal()
+  }
 }
 
 const handleCancel = () => {
-  closeModal()
+  if (isCanAddGuestTag.value) {
+    Modal.confirm({
+      ...ModalConfirmConfig,
+      async onOk() {
+        handleOk()
+      },
+      onCancel() {
+        closeModal()
+      }
+    })
+  } else {
+    closeModal()
+  }
 }
 </script>
 

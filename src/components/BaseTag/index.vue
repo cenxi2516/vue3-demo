@@ -59,7 +59,7 @@ const props = withDefaults(defineProps<TTagProps>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'delete', title: string, confirmDelete: TConfirmDeleteFn): void
+  (e: 'delete', confirmDelete: TConfirmDeleteFn): void
   (e: 'select', selected: boolean, title: string): void
   (e: 'update:selected', selected: boolean): void
 }>()
@@ -99,7 +99,7 @@ const handleDelete = async () => {
 
   props.delConfirm && !popVisible.value
     ? switchPopConfirm(true)
-    : emit('delete', props.title, confirmDelete)
+    : emit('delete', confirmDelete)
 }
 
 const [tooltipVisible, titleRef, handleTooltipVisibleChange] = useTitleEllipsis(

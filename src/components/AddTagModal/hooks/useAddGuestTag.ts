@@ -1,16 +1,40 @@
-import type { IRES } from '@/hooks'
-import { readonly, ref } from 'vue'
-import type { TRBool } from '../types'
+import { ref, watch, type Ref } from 'vue'
+import { ThemeKeyAndLabelTypeMap } from '../consts'
+import type { TCommonTagData, TTagOptionItem } from '../types'
 
-export const useAddGuestTag = (): [TRBool, () => Promise<IRES>] => {
-  const disabledAdd = ref(true)
-  const handleAddGuestTag = async () => {
-    return Promise.resolve({
-      code: 1,
-      data: null,
-      msg: ''
-    })
+export const useAddGuestTag = (
+  tagLibData: Ref<TCommonTagData>
+): [Ref<TTagOptionItem[]>, (item: TTagOptionItem) => Promise<void>] => {
+  const selectedGuestTagData = ref<TTagOptionItem[]>([])
+
+  const _filterSelectedTag = () => {
+    const allTagLibData = [
+      ...tagLibData.value.guestTagList,
+      ...tagLibData.value.caterTagList,
+      ...tagLibData.value.otherTagList
+    ]
+
+    selectedGuestTagData.value = allTagLibData
+      .filter((tagOptionItem) => tagOptionItem.selected)
+      .map((tagOptionItem) => ({
+        ...tagOptionItem,
+        canDeleted: true,
+        canSelected: false
+      }))
   }
 
-  return [readonly(disabledAdd), handleAddGuestTag]
+  const _handleSelectedTagDelete = async (item: TTagOptionItem) => {
+    const tagClassList = tagLibData.value[ThemeKeyAndLabelTypeMap[item.theme]]
+    const tagItem = tagClassList.find((tagItem) => item.labelId === tagItem.labelId)
+
+    if (tagItem) {
+      tagItem.selected = false
+    }
+  }
+
+  watch(tagLibData, () => _filterSelectedTag(), {
+    deep: true
+  })
+
+  return [selectedGuestTagData, _handleSelectedTagDelete]
 }

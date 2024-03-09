@@ -38,16 +38,3 @@ export type TTagProps = {
 }
 
 export type TConfirmDeleteFn = () => Promise<void>
-
-export enum LabelTypeEnum {}
-
-export enum LabelTypeThemeMapEnum {}
-
-export type TTagOptionItem = {
-  labelId: number
-  labelName: string
-  labelType: LabelTypeEnum
-  canDeleted: boolean
-  canSelected: boolean
-  delConfirm: boolean
-}
