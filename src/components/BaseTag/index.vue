@@ -13,7 +13,7 @@
           v-bind="{ ...TagToolTipDefaultProps, ...props.tooltipProps }"
           :title="props.title"
         >
-          <div ref="titleRef" class="title" :style="titleCssStyle">
+          <div ref="titleRef" class="title">
             {{ props.title }}
           </div>
         </a-tooltip>
@@ -102,7 +102,7 @@ const handleDelete = async () => {
     : emit('delete', props.title, confirmDelete)
 }
 
-const [tooltipVisible, titleCssStyle, titleRef, handleTooltipVisibleChange] = useTitleEllipsis(
+const [tooltipVisible, titleRef, handleTooltipVisibleChange] = useTitleEllipsis(
   props.limitByte,
   props.title
 )
