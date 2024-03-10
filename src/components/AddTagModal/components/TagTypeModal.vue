@@ -57,8 +57,18 @@ const totalProps = computed(() => ({
     bodyStyle: {},
     style: {
       ...DEFAULT_MODAL_PROPS.style,
-      top: `${props.top}px`,
-      left: `${props.left}px`,
+      ...(props.top && props.left
+        ? {
+            top: `${props.top}px`,
+            left: `${props.left}px`
+          }
+        : {
+            bottom: 0,
+            top: '30%',
+            left: 0,
+            right: 0,
+            margin: 'auto'
+          })
     }
   },
   ...omit(props, ['visible'])

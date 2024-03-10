@@ -75,6 +75,7 @@ export const DEFAULT_SEARCH_SELECT_PROPRS = {
   showSearch: true,
   defaultActiveFirstOption: false,
   filterOption: false,
+  listHeight: 168,
   getPopupContainer: (node: Node) => node
 }
 
@@ -88,3 +89,5 @@ export const LABEL_TYPE_OPTIONS = Object.entries(LabelTypeAndTextMap).map(([valu
   value,
   label
 }))
+
+export const BUBBLES_MARK_CLASS_NAME = 'search-tag-item'
