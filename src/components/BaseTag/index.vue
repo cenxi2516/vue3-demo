@@ -107,17 +107,13 @@ const handleSelect = throttle(() => {
 }, 3e2)
 
 const [tagVisible, confirmDelete] = useTagDelete()
-
 const handleDelete = async () => {
   if (tagStatus.value !== TagStatusEnum.DELETED) return
 
   props.delConfirm && !popVisible.value ? switchPopConfirm(true) : emit('delete', confirmDelete)
 }
 
-const [tooltipVisible, titleRef, handleTooltipVisibleChange] = useTitleEllipsis(
-  props.limitByte,
-  props.title
-)
+const [tooltipVisible, titleRef, handleTooltipVisibleChange] = useTitleEllipsis(props)
 </script>
 
 <style lang="scss" scoped>
