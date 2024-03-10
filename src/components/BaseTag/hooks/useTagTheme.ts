@@ -1,4 +1,4 @@
-import { computed, readonly, type CSSProperties, type Ref } from 'vue'
+import { computed, readonly, ref, watch, type CSSProperties, type Ref } from 'vue'
 import { PRESET_THEME, READONLY_STYLE_KEY, SELECTED_DELETED_STYLE_KEY } from '../consts'
 import {
   PresetThemeEnum,
@@ -27,16 +27,32 @@ const _setTagStyle = (tagStatus: TagStatusEnum, tagName: TTagTheme): CSSProperti
   }
 }
 
+type TProps = {
+  theme: TTheme
+}
+
 export const useTagTheme = (
-  theme: TTheme,
+  props: TProps,
   tagStatus: Ref<TagStatusEnum>
-): [CSSProperties, Readonly<CSSProperties>] => {
-  const tagTheme = _isPresetTheme(theme)
-    ? PRESET_THEME[theme as PresetThemeEnum]
-    : (theme as TTagTheme)
+): [Readonly<CSSProperties>, Readonly<CSSProperties>] => {
+  const _changeTheme = () =>
+    _isPresetTheme(props.theme)
+      ? PRESET_THEME[props.theme as PresetThemeEnum]
+      : (props.theme as TTagTheme)
 
-  const tagStyle = computed<CSSProperties>(() => _setTagStyle(tagStatus.value, tagTheme))
-  const subTitleStyle = { backgroundColor: tagTheme[TThemeFieldEnum.MAIN_COLOR] }
+  const tagTheme = ref<TTagTheme>(_changeTheme())
 
-  return [subTitleStyle, readonly(tagStyle)]
+  const tagStyle = computed<CSSProperties>(() => _setTagStyle(tagStatus.value, tagTheme.value))
+  const subTitleStyle = computed(() => ({
+    backgroundColor: tagTheme.value[TThemeFieldEnum.MAIN_COLOR]
+  }))
+
+  watch(
+    () => props.theme,
+    () => {
+      tagTheme.value = _changeTheme()
+    }
+  )
+
+  return [readonly(subTitleStyle), readonly(tagStyle)]
 }

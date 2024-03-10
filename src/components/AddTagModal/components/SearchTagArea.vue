@@ -1,24 +1,63 @@
 <template>
-  <a-select class="search-tag-area w-full !mb-15px" v-bind="DEFAULT_SEARCH_SELECT_PROPRS" :open="openArrowMenu"
-    v-model:value="selectvalue" @search="handleSearch" @change="handleChange" @select="handleSelect">
+  <a-select
+    class="search-tag-area w-full !mb-15px"
+    v-bind="DEFAULT_SEARCH_SELECT_PROPRS"
+    :open="openArrowMenu"
+    v-model:value="selectvalue"
+    @search="handleSearch"
+    @change="handleChange"
+    @select="handleSelect"
+  >
     <template #notFoundContent>
       <a-spin :spinning="true">
         <a-empty :description="null" />
       </a-spin>
     </template>
     <a-select-option value="jack">
-      <div class="search-tag-item flex justify-between w-full">
+      <div class="search-tag-item flex justify-between w-full" @click="updateModalPosition">
         <span class="text-left !font-normal">Jack</span>
         <span class="text-right" style="font-size: 12px; color: #bfbfbf">创建标签</span>
       </div>
     </a-select-option>
+    <a-select-option value="mark">
+      <div class="search-tag-item flex justify-between w-full" @click="updateModalPosition">
+        <span class="text-left !font-normal">mark</span>
+        <span class="text-right" style="font-size: 12px; color: #bfbfbf">创建标签</span>
+      </div>
+    </a-select-option>
+    <a-select-option value="yarn">
+      <div class="search-tag-item flex justify-between w-full" @click="updateModalPosition">
+        <span class="text-left !font-normal">yarn</span>
+        <span class="text-right" style="font-size: 12px; color: #bfbfbf">创建标签</span>
+      </div>
+    </a-select-option>
+    <a-select-option value="pnpm" disabled>
+      <div class="search-tag-item flex justify-between w-full" @click="updateModalPosition">
+        <span class="text-left !font-normal">pnpm</span>
+        <span class="text-right" style="font-size: 12px; color: #bfbfbf">创建标签</span>
+      </div>
+    </a-select-option>
+    <a-select-option value="npm">
+      <div class="search-tag-item flex justify-between w-full" @click="updateModalPosition">
+        <span class="text-left !font-normal">npm</span>
+        <span class="text-right" style="font-size: 12px; color: #bfbfbf">创建标签</span>
+      </div>
+    </a-select-option>
   </a-select>
-  <TagTypeModal :visible="visibleModal" labelName="Javas的是的是的辅导费" @close="closeModal" />
+  <TagTypeModal
+    v-if="visibleModal"
+    :visible="visibleModal"
+    labelName="Javas的是的是的辅导费"
+    :top="top"
+    :left="left"
+    @close="closeModal"
+  />
 </template>
 
 <script setup lang="ts">
 import { DEFAULT_SEARCH_SELECT_PROPRS } from '@/components/AddTagModal/consts'
 import { useVisible } from '@/hooks'
+import { useOptionPosition } from '../hooks'
 import { useSearchTag } from '../hooks/useSearchTag'
 
 const [selectvalue, openArrowMenu, handleChangeOrSearch] = useSearchTag()
@@ -32,10 +71,13 @@ const handleChange = (selVal: string) => {
   console.log('change: ', selVal)
 }
 
-const handleSelect = (selVal: string) => {
+const handleSelect = (selVal: string, option: { disabled: boolean }) => {
   showModal()
-  console.log('select: ', selVal)
+  console.log('select: ', selVal, option)
 }
+
+
+const [top, left, updateModalPosition] = useOptionPosition()
 </script>
 
 <style lang="scss">

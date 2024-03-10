@@ -93,7 +93,7 @@ const tagStatus = computed(() => {
 
 const isShowSelected = computed(() => !props.canDeleted && props.canSelected && props.selected)
 
-const [subTitleStyle, tagStyle] = useTagTheme(props.theme, tagStatus)
+const [subTitleStyle, tagStyle] = useTagTheme(props, tagStatus)
 
 const [popVisible, switchPopConfirm] = useTagPopConfirm()
 

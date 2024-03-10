@@ -1,26 +1,23 @@
 <template>
   <a-modal
-    ref="modalRef"
     :visible="props.visible"
     wrapClassName="tag-type-modal"
     v-bind="totalProps"
     @ok="handleOk"
   >
     <template #title>
-      {{ '请选择新增标签类型' }}
+      <span>{{ '请选择新增标签' }}</span>
       <base-tag
         :title="props.labelName"
-        :theme="{
-          mainColor: '#d9d9d9'
-        }"
-      ></base-tag>
-
-      {{ '所属类型' }}
+        style="margin-left: 8px; vertical-align: 2px"
+        :theme="theme"
+      />
+      <span>{{ '所属类型' }}</span>
     </template>
     <a-radio-group v-model:value="labelType" name="labelType">
-      <a-radio v-for="{ value, label } in LABEL_TYPE_OPTIONS" :value="value" :key="value">{{
-        label
-      }}</a-radio>
+      <a-radio v-for="{ value, label } in LABEL_TYPE_OPTIONS" :value="value" :key="value">
+        {{ label }}
+      </a-radio>
     </a-radio-group>
     <div class="text-right mt-4">
       <a-space>
@@ -33,22 +30,22 @@
 
 <script setup lang="ts">
 import BaseTag from '@/components/BaseTag/index.vue'
-import { useZIndex } from '@/hooks'
 import { omit } from 'lodash-es'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { DEFAULT_MODAL_PROPS, LABEL_TYPE_OPTIONS } from '../consts'
+import { useAddTagTheme } from '../hooks'
 
 const props = defineProps<{
   visible: boolean
   labelName: string
+  top: number
+  left: number
 }>()
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
-const labelType = ref()
-const modalRef = ref()
-const { zIndex, increase, decrease } = useZIndex(modalRef)
+
 const totalProps = computed(() => ({
   ...DEFAULT_MODAL_PROPS,
   ...{
@@ -57,10 +54,17 @@ const totalProps = computed(() => ({
     closable: false,
     centered: false,
     width: '365px',
-    bodyStyle: {}
+    bodyStyle: {},
+    style: {
+      ...DEFAULT_MODAL_PROPS.style,
+      top: `${props.top}px`,
+      left: `${props.left}px`,
+    }
   },
-  ...omit(props, ['visible']),
+  ...omit(props, ['visible'])
 }))
+
+const [theme, labelType] = useAddTagTheme()
 
 const closeModal = () => emit('close')
 const handleOk = () => {
@@ -74,17 +78,24 @@ const handleCancel = () => {
 <style lang="scss">
 #main-modal-wrapper {
   .tag-type-modal {
-    color: #f40;
-
     .ant-modal {
       overflow: visible !important;
+      bottom: 'auto';
+      right: 'auto';
+      margin: 0;
 
-      .ant-modal-header {
-        border: none;
-      }
+      .ant-modal-content {
+        border-radius: 5px;
 
-      .ant-modal-body {
-        padding-top: 0;
+        .ant-modal-header {
+          display: flex;
+          align-items: center;
+          border: none;
+        }
+
+        .ant-modal-body {
+          padding-top: 0;
+        }
       }
     }
   }
