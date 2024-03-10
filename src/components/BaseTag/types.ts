@@ -1,5 +1,3 @@
-import type { PopconfirmProps, TooltipProps } from 'ant-design-vue'
-
 export enum PresetThemeEnum {
   GUEST = 'guest', // default
   CATER = 'cater',
@@ -23,18 +21,5 @@ export type TTagTheme = {
 }
 
 export type TTheme = PresetThemeEnum | TTagTheme
-
-export type TTagProps = {
-  title: string
-  theme?: TTheme
-  isOtherCompany?: boolean
-  canSelected?: boolean
-  canDeleted?: boolean
-  selected?: boolean
-  delConfirm?: boolean
-  limitByte?: number
-  popConfirmProps?: PopconfirmProps
-  tooltipProps?: TooltipProps
-}
 
 export type TConfirmDeleteFn = () => Promise<void>

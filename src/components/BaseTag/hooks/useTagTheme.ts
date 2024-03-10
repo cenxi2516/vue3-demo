@@ -1,5 +1,5 @@
 import { computed, readonly, type CSSProperties, type Ref } from 'vue'
-import { PRESET_THEME, ReadonlyStyleKey, SelectedAndDeletedStyleKey } from '../consts'
+import { PRESET_THEME, READONLY_STYLE_KEY, SELECTED_DELETED_STYLE_KEY } from '../consts'
 import {
   PresetThemeEnum,
   TThemeFieldEnum,
@@ -15,14 +15,14 @@ const _setTagStyle = (tagStatus: TagStatusEnum, tagName: TTagTheme): CSSProperti
   switch (tagStatus) {
     case TagStatusEnum.READONLY:
       return {
-        backgroundColor: tagName[ReadonlyStyleKey.backgroundColor],
-        borderColor: tagName[ReadonlyStyleKey.borderColor]
+        backgroundColor: tagName[READONLY_STYLE_KEY.backgroundColor],
+        borderColor: tagName[READONLY_STYLE_KEY.borderColor]
       }
     case TagStatusEnum.SELECTED:
     case TagStatusEnum.DELETED:
       return {
-        backgroundColor: tagName[SelectedAndDeletedStyleKey.backgroundColor],
-        borderColor: tagName[SelectedAndDeletedStyleKey.borderColor]
+        backgroundColor: tagName[SELECTED_DELETED_STYLE_KEY.backgroundColor],
+        borderColor: tagName[SELECTED_DELETED_STYLE_KEY.borderColor]
       }
   }
 }

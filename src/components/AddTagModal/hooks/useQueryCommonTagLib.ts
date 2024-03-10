@@ -11,7 +11,7 @@ import {
   type TTagOptionItem
 } from '../types'
 
-export const useQueryTagLib = (
+export const useQueryCommonTagLib = (
   props: TAddTagModalProps,
   size: number = DEFAULT_COMMON_TAG_SIZE
 ): [TReadonlyRef<boolean>, Ref<TCommonTagData>] => {

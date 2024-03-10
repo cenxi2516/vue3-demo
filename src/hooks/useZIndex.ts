@@ -9,7 +9,7 @@ type TUseZIndexFn = (domRef: TDomRef) => {
 }
 
 const map = new Map()
-const DEFAULT_Z_INDEX = 1e3
+const DEFAULT_Z_INDEX = 1e4
 const nextZIndex = ref(DEFAULT_Z_INDEX)
 
 const _updateZIndex = (domRef: TDomRef, curZIndex: TZIndex) => {

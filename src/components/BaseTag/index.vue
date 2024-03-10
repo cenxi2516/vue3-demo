@@ -1,7 +1,7 @@
 <template>
   <a-tag v-if="tagVisible" class="select-none" style="padding: 0; line-height: 1" :style="tagStyle">
     <a-popconfirm
-      v-bind="{ ...TagPopConfirmDefaultProps, ...props.popConfirmProps }"
+      v-bind="{ ...TAG_CONFIRM_POP_DEFAULT_PROPS, ...props.popConfirmProps }"
       :visible="props.delConfirm && popVisible"
       @confirm="handleDelete"
       @cancel="switchPopConfirm(false)"
@@ -10,11 +10,11 @@
         <a-tooltip
           v-model:visible="tooltipVisible"
           @visibleChange="handleTooltipVisibleChange"
-          v-bind="{ ...TagToolTipDefaultProps, ...props.tooltipProps }"
+          v-bind="{ ...TAG_TOOLTIP_DEFAULT_PROPS, ...props.tooltipProps }"
           :title="props.title"
         >
           <div ref="titleRef" class="title">
-            {{ props.title }}
+            <span>{{ props.title }}</span>
           </div>
         </a-tooltip>
         <div v-if="props.isOtherCompany" class="sub-title" :style="subTitleStyle">
@@ -37,16 +37,30 @@
 
 <script setup lang="ts">
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons-vue'
+import type { PopconfirmProps, TooltipProps } from 'ant-design-vue'
 import { throttle } from 'lodash-es'
 import { computed } from 'vue'
 import {
   DEFAULT_MAX_BYTE,
   OTHER_COMPANY_SIGN,
-  TagPopConfirmDefaultProps,
-  TagToolTipDefaultProps
+  TAG_CONFIRM_POP_DEFAULT_PROPS,
+  TAG_TOOLTIP_DEFAULT_PROPS
 } from './consts'
 import { useTagDelete, useTagPopConfirm, useTagTheme, useTitleEllipsis } from './hooks'
-import { PresetThemeEnum, TagStatusEnum, type TConfirmDeleteFn, type TTagProps } from './types'
+import { PresetThemeEnum, TagStatusEnum, type TConfirmDeleteFn, type TTheme } from './types'
+
+type TTagProps = {
+  title: string
+  theme?: TTheme
+  isOtherCompany?: boolean
+  canSelected?: boolean
+  canDeleted?: boolean
+  selected?: boolean
+  delConfirm?: boolean
+  limitByte?: number
+  popConfirmProps?: PopconfirmProps
+  tooltipProps?: TooltipProps
+}
 
 const props = withDefaults(defineProps<TTagProps>(), {
   theme: PresetThemeEnum.GUEST,
@@ -97,9 +111,7 @@ const [tagVisible, confirmDelete] = useTagDelete()
 const handleDelete = async () => {
   if (tagStatus.value !== TagStatusEnum.DELETED) return
 
-  props.delConfirm && !popVisible.value
-    ? switchPopConfirm(true)
-    : emit('delete', confirmDelete)
+  props.delConfirm && !popVisible.value ? switchPopConfirm(true) : emit('delete', confirmDelete)
 }
 
 const [tooltipVisible, titleRef, handleTooltipVisibleChange] = useTitleEllipsis(

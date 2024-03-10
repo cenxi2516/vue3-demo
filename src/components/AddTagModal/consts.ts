@@ -2,6 +2,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { createVNode, type CSSProperties } from 'vue'
 import { PresetThemeEnum } from '../BaseTag/types'
 import { LabelTypeEnum, ThemeKeyEnum, type TCommonTagData } from './types'
+import { getContainer } from './utils'
 
 export const DEFAULT_MODAL_PROPS = {
   centered: true,
@@ -17,7 +18,8 @@ export const DEFAULT_MODAL_PROPS = {
     height: '500px',
     overflowY: 'auto',
     boxSizing: 'content-box'
-  }
+  },
+  getContainer
 }
 
 export const DEFAULT_BUTTON_PROPS = {
@@ -40,9 +42,9 @@ export const LabelTypeThemeMap = {
 }
 
 export const DEFAULT_COMMON_TAG_DATA: TCommonTagData = {
-  guestTagList: [],
-  caterTagList: [],
-  otherTagList: []
+  [ThemeKeyEnum.GUEST]: [],
+  [ThemeKeyEnum.CATER]: [],
+  [ThemeKeyEnum.OTHER]: []
 }
 
 export const ThemeKeyAndLabelTypeMap = {
@@ -51,7 +53,7 @@ export const ThemeKeyAndLabelTypeMap = {
   [PresetThemeEnum.OTHER]: ThemeKeyEnum.OTHER
 }
 
-export const ModalConfirmConfig = {
+export const ADD_TAG_TWO_CONFIRM_CONFIG = {
   title: `${'温馨提示'}`,
   icon: createVNode(ExclamationCircleOutlined),
   style: { ...DEFAULT_MODAL_PROPS.style } as CSSProperties,
@@ -59,3 +61,30 @@ export const ModalConfirmConfig = {
   okText: `${'添加并退出'}`,
   cancelText: `${'不添加'}`
 }
+
+export const DEFAULT_SEARCH_SELECT_PROPRS = {
+  style: {
+    width: '100%'
+  },
+  dropdownStyle: {
+    borderRadius: '3px',
+    transform: 'translateY(10px)'
+  },
+  placeholder: '请搜索/创建标签',
+  showArrow: false,
+  showSearch: true,
+  defaultActiveFirstOption: false,
+  filterOption: false,
+  getPopupContainer: (node: Node) => node
+}
+
+const LabelTypeAndTextMap = {
+  [LabelTypeEnum.ROOM_PREFERENCE]: '房客喜好',
+  [LabelTypeEnum.DIET_PREFERENCE]: '餐饮喜好',
+  [LabelTypeEnum.OTHER_PREFERENCE]: '其他喜好'
+}
+
+export const LABEL_TYPE_OPTIONS = Object.entries(LabelTypeAndTextMap).map(([value, label]) => ({
+  value,
+  label
+}))

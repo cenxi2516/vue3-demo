@@ -1,3 +1,4 @@
 export * from './useAddGuestTag'
-export * from './useQueryTagLib'
+export * from './useAddTagToLib'
+export * from './useQueryCommonTagLib'
 

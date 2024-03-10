@@ -1,69 +1,40 @@
 <template>
-  <a-select
-    class="search-tag-area w-full !mb-15px"
-    v-model:value="value"
-    show-search
-    placeholder="请搜索/创建标签"
-    :default-active-first-option="false"
-    :show-arrow="false"
-    :filter-option="true"
-    :not-found-content="null"
-    :options="data"
-    @search="handleSearch"
-    @change="handleChange"
-  ></a-select>
+  <a-select class="search-tag-area w-full !mb-15px" v-bind="DEFAULT_SEARCH_SELECT_PROPRS" :open="openArrowMenu"
+    v-model:value="selectvalue" @search="handleSearch" @change="handleChange" @select="handleSelect">
+    <template #notFoundContent>
+      <a-spin :spinning="true">
+        <a-empty :description="null" />
+      </a-spin>
+    </template>
+    <a-select-option value="jack">
+      <div class="search-tag-item flex justify-between w-full">
+        <span class="text-left !font-normal">Jack</span>
+        <span class="text-right" style="font-size: 12px; color: #bfbfbf">创建标签</span>
+      </div>
+    </a-select-option>
+  </a-select>
+  <TagTypeModal :visible="visibleModal" labelName="Javas的是的是的辅导费" @close="closeModal" />
 </template>
 
 <script setup lang="ts">
-import jsonp from 'fetch-jsonp'
-import qs from 'qs'
-import { ref } from 'vue'
+import { DEFAULT_SEARCH_SELECT_PROPRS } from '@/components/AddTagModal/consts'
+import { useVisible } from '@/hooks'
+import { useSearchTag } from '../hooks/useSearchTag'
 
-let timeout: any
-let currentValue = ''
+const [selectvalue, openArrowMenu, handleChangeOrSearch] = useSearchTag()
+const [visibleModal, showModal, closeModal] = useVisible()
 
-function fetch(value: string, callback: any) {
-  if (timeout) {
-    clearTimeout(timeout)
-    timeout = null
-  }
-  currentValue = value
-
-  function fake() {
-    const str = qs.stringify({
-      code: 'utf-8',
-      q: value
-    })
-    jsonp(`https://suggest.taobao.com/sug?${str}`)
-      .then((response) => response.json())
-      .then((d) => {
-        if (currentValue === value) {
-          const result = d.result
-          const data: any[] = []
-          result.forEach((r: any) => {
-            data.push({
-              value: r[0],
-              label: r[0]
-            })
-          })
-          callback(data)
-        }
-      })
-  }
-
-  timeout = setTimeout(fake, 300)
+const handleSearch = (inpVal: string) => {
+  console.log('search: ', inpVal)
 }
 
-const data = ref<any[]>([])
-const value = ref()
-
-const handleSearch = (val: string) => {
-  fetch(val, (d: any[]) => (data.value = d))
+const handleChange = (selVal: string) => {
+  console.log('change: ', selVal)
 }
-const handleChange = (val: string) => {
-  console.log(val)
-  value.value = val
-  fetch(val, (d: any[]) => (data.value = d))
+
+const handleSelect = (selVal: string) => {
+  showModal()
+  console.log('select: ', selVal)
 }
 </script>
 

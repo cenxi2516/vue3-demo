@@ -4,7 +4,7 @@ import { DEFAULT_MIN_BYTE, PER_BYTE_PX } from '../consts'
 export const useTitleEllipsis = (
   limitByte: number,
   text: string
-): [Ref<boolean>, Ref<HTMLDivElement | undefined>, (visible: boolean) => void] => {
+): [Ref<boolean>, Ref<HTMLDivElement | undefined>, (visible: boolean) => Promise<void>] => {
   const isEllipsis = ref(false)
   const tooltipVisible = ref(false)
   const titleRef = ref<HTMLDivElement>()
@@ -12,7 +12,21 @@ export const useTitleEllipsis = (
   const maxWidth = computed(() => limitByte * fontSizeHalf.value)
   const minWidth = computed(() => DEFAULT_MIN_BYTE * fontSizeHalf.value)
 
-  const handleTooltipVisibleChange = (visible: boolean) => {
+  const _checkVisibleTooltip = () => {
+    const titleFirstElement = titleRef.value?.firstElementChild
+    if (titleFirstElement) {
+      const titleStyle = getComputedStyle(titleFirstElement)
+      const { width: titleContentWidth } = titleFirstElement.getBoundingClientRect()
+      fontSizeHalf.value = parseInt(titleStyle.fontSize) / 2
+
+      isEllipsis.value = maxWidth.value < titleContentWidth
+    } else {
+      isEllipsis.value = true
+    }
+  }
+
+  const _handleTooltipVisibleChange = async (visible: boolean) => {
+    await _checkVisibleTooltip()
     if (!isEllipsis.value) {
       tooltipVisible.value = false
     }
@@ -20,14 +34,10 @@ export const useTitleEllipsis = (
 
   onMounted(() => {
     if (titleRef.value) {
-      const titleStyle = getComputedStyle(titleRef.value)
-      fontSizeHalf.value = parseInt(titleStyle.fontSize) / 2
-      isEllipsis.value = maxWidth.value < parseFloat(titleStyle.width)
-
       titleRef.value.style.minWidth = minWidth.value + 'px'
       titleRef.value.style.maxWidth = maxWidth.value + 'px'
     }
   })
 
-  return [tooltipVisible, titleRef, handleTooltipVisibleChange]
+  return [tooltipVisible, titleRef, _handleTooltipVisibleChange]
 }

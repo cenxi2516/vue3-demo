@@ -23,6 +23,7 @@ watch(isShow, () => {
 
 	if (!isShow.value) instance.destroy()
 })
+
 </script>
 
 <template>
@@ -45,6 +46,7 @@ watch(isShow, () => {
 			</a-tab-pane>
 		</a-tabs>
 	</div>
+	<div id="main-modal-wrapper" class="!relative !overflow-visible"></div>
 </template>
 
 <style lang="scss" scoped></style>
