@@ -14,21 +14,13 @@ export const useInputListener = (
   maxInputLength?: number
 ) => {
   const isComposing = ref(false)
-  const newInputValue = ref('')
-  const oldInputValue = ref('')
   const [isOverMaxInputLength, overInputTip] = _useOverMaxInputLengthTip(
     inputElement,
     maxInputLength
   )
 
   const _executeHandlerTask = async (e: InputEvent | CompositionEvent) => {
-    const inputValue = _getInputValue(e)
-    newInputValue.value = inputValue
-
-    if (newInputValue.value !== oldInputValue.value) {
-      await handler(inputValue, e)
-      oldInputValue.value = inputValue
-    }
+    await handler(_getInputValue(e), e)
   }
 
   useEventListener(inputElement, 'compositionstart', (e: CompositionEvent) => {

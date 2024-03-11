@@ -1,26 +1,36 @@
 import { queryCommonTagList } from '@/api/tag'
-import { useExecuteRequest, useInputListener } from '@/hooks'
+import { useExecuteRequest } from '@/hooks'
 import { to } from '@/utils'
+import type { Select } from 'ant-design-vue'
 import { debounce } from 'lodash-es'
-import { onMounted, ref, watch, type Ref } from 'vue'
+import { ref, watch, type Ref } from 'vue'
 import type { TProps } from '../components/SearchTagArea.vue'
-import {
-  DEFAULT_SEARCH_SELECT_PROPRS,
-  DEFAULT_SEARCH_TAG_SIZE,
-  MAX_SEARCH_TEXT_LENGTH
-} from '../consts'
-import type { ISearchTagOption } from '../types'
+import { DEFAULT_SEARCH_TAG_SIZE } from '../consts'
+import { useArrowMenu, useInputElement } from '../hooks'
+import type { ISearchTagOption, TReadonlyRef } from '../types'
 
 type TFn = (val: string) => void
+
+type TSearchReturnValue = {
+  searchValue: Ref<string>
+  searchTagOptionData: Readonly<Ref<ISearchTagOption[]>>
+  arrowMenuVisible: TReadonlyRef<boolean>
+  openArrowMenu: () => void
+  closeArrowMenu: () => void
+  selectRef: Ref<InstanceType<typeof Select> | null>
+  inputElementRef: Ref<HTMLInputElement | undefined>
+  setInputElementValue: (newValue: string) => void
+}
 
 export const useSearchTag = (
   props: TProps,
   size: number = DEFAULT_SEARCH_TAG_SIZE
-): [Ref<string>, Readonly<Ref<ISearchTagOption[]>>, Ref<boolean>] => {
+): TSearchReturnValue => {
   const searchValue = ref('')
   const searchTagOptionData = ref<ISearchTagOption[]>([])
-  const openArrowMenu = ref(true) // control open down menu
+  const selectRef = ref<InstanceType<typeof Select> | null>(null)
 
+  const [arrowMenuVisible, openArrowMenu, closeArrowMenu] = useArrowMenu()
   const [_loadingSearch, _fetchTagLibTask] = useExecuteRequest(() =>
     queryCommonTagList({ size, labelName: searchValue.value })
   )
@@ -29,11 +39,9 @@ export const useSearchTag = (
     props.selectedData.some((tagOption) => tagOption.labelId === labelId)
 
   const _addSearchValueToTagOptions = (isExistSearchValueTagName: boolean) => {
-    console.log(searchValue.value.length)
-
     if (isExistSearchValueTagName || !searchValue.value) return
 
-    searchTagOptionData.value.push({
+    searchTagOptionData.value.unshift({
       labelId: undefined,
       labelType: undefined,
       labelName: searchValue.value,
@@ -42,11 +50,17 @@ export const useSearchTag = (
     })
   }
 
+  const clearSearchTagOptionData = () => {
+    searchTagOptionData.value = []
+  }
+
   const _getSearchTagData = async () => {
     let isExistSearchValueTagName = false
+    if (!searchValue.value.length) return
 
     const [error, data] = await to(_fetchTagLibTask())
-    searchTagOptionData.value = []
+    clearSearchTagOptionData()
+
     if (error === null && data) {
       data.forEach((tagOption) => {
         if (!isExistSearchValueTagName && tagOption.labelName === searchValue.value) {
@@ -64,16 +78,16 @@ export const useSearchTag = (
     }
 
     await _addSearchValueToTagOptions(isExistSearchValueTagName)
-    openArrowMenu.value = true
-    console.log(searchTagOptionData.value)
+    openArrowMenu()
   }
 
-  const _fetchTagLibTaskDebounce = debounce(_getSearchTagData, 5e2)
+  const _fetchTagLibTaskDebounce = debounce(_getSearchTagData, 2e2)
   const _handleSearch = (searchVal: string, e: InputEvent | CompositionEvent) => {
     searchValue.value = searchVal.trim()
 
     if (searchValue.value.length === 0) {
-      searchTagOptionData.value = []
+      closeArrowMenu()
+      clearSearchTagOptionData()
       return
     }
 
@@ -91,17 +105,7 @@ export const useSearchTag = (
         _fetchTagLibTaskDebounce()
     }
   }
-
-  onMounted(() => {
-    const inputElement = document.querySelector(
-      '.search-tag-area-wrapper .search-tag-area input[type=search]'
-    )
-
-    if (inputElement instanceof HTMLInputElement) {
-      inputElement.placeholder = DEFAULT_SEARCH_SELECT_PROPRS.placeholder
-      useInputListener(inputElement, _handleSearch, MAX_SEARCH_TEXT_LENGTH)
-    }
-  })
+  const [inputElementRef, setInputElementValue] = useInputElement(_handleSearch)
 
   watch(props.selectedData, () => {
     if (!searchTagOptionData.value.length) return
@@ -116,5 +120,14 @@ export const useSearchTag = (
     })
   })
 
-  return [searchValue, searchTagOptionData, openArrowMenu]
+  return {
+    searchValue,
+    searchTagOptionData,
+    arrowMenuVisible,
+    openArrowMenu,
+    closeArrowMenu,
+    selectRef,
+    inputElementRef,
+    setInputElementValue
+  }
 }

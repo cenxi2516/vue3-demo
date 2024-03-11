@@ -41,6 +41,7 @@ declare module 'vue' {
     BaseTag: typeof import('./src/components/BaseTag/index.vue')['default']
     CommonTagArea: typeof import('./src/components/AddTagModal/components/CommonTagArea.vue')['default']
     CommonTagItem: typeof import('./src/components/AddTagModal/components/CommonTagItem.vue')['default']
+    InputSearch: typeof import('./src/components/AddTagModal/components/InputSearch.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Scroll: typeof import('./src/components/Scroll/index.vue')['default']

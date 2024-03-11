@@ -94,6 +94,7 @@ const [tagAddToLibLoading, addTagToLibTask] = useExecuteRequest(() =>
 const closeModal = (tagData?: IRESTagItem) => emit('close', tagData)
 const handleOk = async () => {
   const [error, tagData] = await to(addTagToLibTask())
+
   if (error === null && tagData) {
     message.success('添加标签成功')
     closeModal(tagData)
