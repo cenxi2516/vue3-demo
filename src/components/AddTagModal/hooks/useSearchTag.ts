@@ -4,7 +4,11 @@ import { to } from '@/utils'
 import { debounce } from 'lodash-es'
 import { onMounted, ref, watch, type Ref } from 'vue'
 import type { TProps } from '../components/SearchTagArea.vue'
-import { DEFAULT_SEARCH_TAG_SIZE, MAX_SEARCH_TEXT_LENGTH } from '../consts'
+import {
+  DEFAULT_SEARCH_SELECT_PROPRS,
+  DEFAULT_SEARCH_TAG_SIZE,
+  MAX_SEARCH_TEXT_LENGTH
+} from '../consts'
 import type { ISearchTagOption } from '../types'
 
 type TFn = (val: string) => void
@@ -25,7 +29,9 @@ export const useSearchTag = (
     props.selectedData.some((tagOption) => tagOption.labelId === labelId)
 
   const _addSearchValueToTagOptions = (isExistSearchValueTagName: boolean) => {
-    if (isExistSearchValueTagName) return
+    console.log(searchValue.value.length)
+
+    if (isExistSearchValueTagName || !searchValue.value) return
 
     searchTagOptionData.value.push({
       labelId: undefined,
@@ -37,10 +43,10 @@ export const useSearchTag = (
   }
 
   const _getSearchTagData = async () => {
-    searchTagOptionData.value = []
     let isExistSearchValueTagName = false
 
     const [error, data] = await to(_fetchTagLibTask())
+    searchTagOptionData.value = []
     if (error === null && data) {
       data.forEach((tagOption) => {
         if (!isExistSearchValueTagName && tagOption.labelName === searchValue.value) {
@@ -59,6 +65,7 @@ export const useSearchTag = (
 
     await _addSearchValueToTagOptions(isExistSearchValueTagName)
     openArrowMenu.value = true
+    console.log(searchTagOptionData.value)
   }
 
   const _fetchTagLibTaskDebounce = debounce(_getSearchTagData, 5e2)
@@ -91,6 +98,7 @@ export const useSearchTag = (
     )
 
     if (inputElement instanceof HTMLInputElement) {
+      inputElement.placeholder = DEFAULT_SEARCH_SELECT_PROPRS.placeholder
       useInputListener(inputElement, _handleSearch, MAX_SEARCH_TEXT_LENGTH)
     }
   })

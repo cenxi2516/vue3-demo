@@ -29,7 +29,7 @@ export const useAddGuestTag = (
       ...tagLibData.value.otherTagList
     ]
 
-    return _becomeCanDeleteTag(allTagLibData.filter((tagOptionItem) => tagOptionItem.selected))
+    return allTagLibData.filter((tagOptionItem) => tagOptionItem.selected)
   }
 
   const _getCommonLibTagItem = (item: TTagOptionItem) => {
@@ -86,7 +86,10 @@ export const useAddGuestTag = (
   const _combineSelectedTag = () => {
     const commonLibSelectedTags = _filterCommonLibSelectedTag()
 
-    selectedGuestTagData.value = [...commonLibSelectedTags, ...manualAddTagData.value]
+    selectedGuestTagData.value = _becomeCanDeleteTag([
+      ...commonLibSelectedTags,
+      ...manualAddTagData.value
+    ])
   }
 
   watch([tagLibData, manualAddTagData], () => _combineSelectedTag(), {
