@@ -1,7 +1,7 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { createVNode, type CSSProperties } from 'vue'
 import { PresetThemeEnum } from '../BaseTag/types'
-import { LabelTypeEnum, ThemeKeyEnum, type TCommonTagData } from './types'
+import { CreateTagTypeEnum, LabelTypeEnum, ThemeKeyEnum, type TCommonTagData } from './types'
 import { getContainer } from './utils'
 
 export const DEFAULT_MODAL_PROPS = {
@@ -34,6 +34,7 @@ export const DEFAULT_TAG_LIST_STYLE = {
 }
 
 export const DEFAULT_COMMON_TAG_SIZE = 20
+export const DEFAULT_SEARCH_TAG_SIZE = 20
 
 export const LabelTypeThemeMap = {
   [LabelTypeEnum.ROOM_PREFERENCE]: PresetThemeEnum.GUEST,
@@ -91,3 +92,23 @@ export const LABEL_TYPE_OPTIONS = Object.entries(LabelTypeAndTextMap).map(([valu
 }))
 
 export const BUBBLES_MARK_CLASS_NAME = 'search-tag-item'
+
+export const ADD_TYPE_MODAL_DEFAULT_PROPS = {
+  ...DEFAULT_MODAL_PROPS,
+  ...{
+    footer: null,
+    mask: false,
+    closable: false,
+    centered: false,
+    width: '365px',
+    bodyStyle: {}
+  }
+}
+
+export const CreateTagTypeAndValueMap = {
+  [CreateTagTypeEnum.NOT_CREATED]: '创建标签',
+  [CreateTagTypeEnum.NOT_SELECTED]: '添加标签',
+  [CreateTagTypeEnum.SELECTED]: '已选标签'
+}
+
+export const MAX_SEARCH_TEXT_LENGTH = 50

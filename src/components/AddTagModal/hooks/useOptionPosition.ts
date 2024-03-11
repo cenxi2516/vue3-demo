@@ -2,7 +2,7 @@ import { readonly, ref } from 'vue'
 import type { TReadonlyRef } from '../types'
 
 const X_FILL_VALUE = -12
-const Y_FILL_VALUE = 10
+const Y_FILL_VALUE = 6
 
 export const useOptionPosition = (): [
   TReadonlyRef<number>,

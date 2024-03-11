@@ -32,3 +32,19 @@ export type TCommonTagData = {
   [ThemeKeyEnum.CATER]: TTagOptionItem[]
   [ThemeKeyEnum.OTHER]: TTagOptionItem[]
 }
+
+export enum CreateTagTypeEnum {
+  NOT_CREATED = 'not_created',
+  SELECTED = 'selected',
+  NOT_SELECTED = 'not_selected'
+}
+
+export enum AddTagTypeEnum {
+  COMMON_LIB = 1,
+  SEARCH_CREATE = 2
+}
+
+export interface ISearchSelectOption extends IRESTagItem {
+  selected: boolean
+  created: boolean
+}
