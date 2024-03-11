@@ -21,18 +21,7 @@ export const useQueryCommonTagLib = (
 
   const _tagLibGroupByLabelType = (tagLibList: IRESTagItem[]) => {
     tagLibList.forEach((item) => {
-      const newItem = {
-        ...omit(item, ['isLocal', 'labelName', 'labelType']),
-        ...{
-          title: item.labelName,
-          theme: LabelTypeThemeMap[item.labelType],
-          canDeleted: false,
-          canSelected: true,
-          delConfirm: false,
-          selected: false,
-          isOtherCompany: item.isLocal
-        }
-      } as TTagOptionItem
+      const newItem = convertTagOptionItemData(item)
 
       switch (item.labelType) {
         case LabelTypeEnum.ROOM_PREFERENCE:
@@ -61,3 +50,17 @@ export const useQueryCommonTagLib = (
 
   return [loading, tagLibData]
 }
+
+export const convertTagOptionItemData = (resTagItem: IRESTagItem) =>
+  ({
+    ...omit(resTagItem, ['isLocal', 'labelName', 'labelType']),
+    ...{
+      title: resTagItem.labelName,
+      theme: LabelTypeThemeMap[resTagItem.labelType],
+      canDeleted: false,
+      canSelected: true,
+      delConfirm: false,
+      selected: false,
+      isOtherCompany: resTagItem.isLocal
+    }
+  }) as TTagOptionItem

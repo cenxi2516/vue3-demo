@@ -69,7 +69,7 @@ export const DEFAULT_SEARCH_SELECT_PROPRS = {
   },
   dropdownStyle: {
     borderRadius: '3px',
-    transform: 'translateY(10px)'
+    top: '35px'
   },
   placeholder: '请搜索/创建标签',
   showArrow: false,
@@ -77,6 +77,7 @@ export const DEFAULT_SEARCH_SELECT_PROPRS = {
   defaultActiveFirstOption: false,
   filterOption: false,
   listHeight: 168,
+  notFoundContent: null,
   getPopupContainer: (node: Node) => node
 }
 

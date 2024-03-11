@@ -8,7 +8,7 @@
     <template #title>{{ '新增标签' }}</template>
     <template #closeIcon><close-outlined @click="handleCancel" style="font-size: 14px" /></template>
     <a-spin :spinning="commonLibTagLoading">
-      <SearchTagArea @add="handleAddTag" />
+      <SearchTagArea :selectedData="selectedGuestTagData" @add="manualAddTag" />
       <CommonTagArea :data="tagLibData" />
       <SelectedTagArea :data="selectedGuestTagData" @delete="handleSelectedTagDelete" />
     </a-spin>
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { addGuestTag, type IRESTagItem } from '@/api/tag'
+import { addGuestTag } from '@/api/tag'
 import { useExecuteRequest } from '@/hooks'
 import { to } from '@/utils'
 import { CloseOutlined } from '@ant-design/icons-vue'
@@ -41,7 +41,6 @@ import SearchTagArea from './components/SearchTagArea.vue'
 import SelectedTagArea from './components/SelectedTagArea.vue'
 import { ADD_TAG_TWO_CONFIRM_CONFIG, DEFAULT_BUTTON_PROPS, DEFAULT_MODAL_PROPS } from './consts'
 import { useAddGuestTag, useQueryCommonTagLib } from './hooks'
-import type { AddTagTypeEnum } from './types'
 
 export type TAddTagModalProps = {
   visible: boolean
@@ -58,7 +57,7 @@ const totalProps = computed(() => ({
 }))
 
 const [commonLibTagLoading, tagLibData] = useQueryCommonTagLib(props)
-const [selectedGuestTagData, handleSelectedTagDelete] = useAddGuestTag(tagLibData)
+const [selectedGuestTagData, handleSelectedTagDelete, manualAddTag] = useAddGuestTag(tagLibData)
 const isCanAddGuestTag = computed(() => selectedGuestTagData.value.length)
 const [guestTagAddLoading, addTagToGuestTask] = useExecuteRequest(() =>
   addGuestTag({
@@ -90,10 +89,6 @@ const handleCancel = () => {
   } else {
     closeModal(false)
   }
-}
-
-const handleAddTag = (addType: AddTagTypeEnum, tagData: IRESTagItem) => {
-  console.log(addType, tagData)
 }
 </script>
 

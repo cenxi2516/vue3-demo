@@ -1,27 +1,88 @@
 import { queryCommonTagList } from '@/api/tag'
 import { useExecuteRequest, useInputListener } from '@/hooks'
-import { onMounted, readonly, ref, type Ref } from 'vue'
+import { to } from '@/utils'
+import { debounce } from 'lodash-es'
+import { onMounted, ref, watch, type Ref } from 'vue'
+import type { TProps } from '../components/SearchTagArea.vue'
 import { DEFAULT_SEARCH_TAG_SIZE, MAX_SEARCH_TEXT_LENGTH } from '../consts'
-import type { TReadonlyRef } from '../types'
+import type { ISearchTagOption } from '../types'
 
 type TFn = (val: string) => void
 
 export const useSearchTag = (
+  props: TProps,
   size: number = DEFAULT_SEARCH_TAG_SIZE
-): [Ref<string>, TReadonlyRef<boolean>] => {
-  const inputValue = ref('')
-  const selectValue = ref('')
+): [Ref<string>, Readonly<Ref<ISearchTagOption[]>>, Ref<boolean>] => {
+  const searchValue = ref('')
+  const searchTagOptionData = ref<ISearchTagOption[]>([])
   const openArrowMenu = ref(true) // control open down menu
-  const [loadingSearch, _fetchTask] = useExecuteRequest(() =>
-    queryCommonTagList({ size, labelName: selectValue.value })
+
+  const [_loadingSearch, _fetchTagLibTask] = useExecuteRequest(() =>
+    queryCommonTagList({ size, labelName: searchValue.value })
   )
 
-  const _handleSearch = (searchVal: string, e?: KeyboardEvent) => {
-    console.log(searchVal)
+  const _checkTagSelected = (labelId?: number) =>
+    props.selectedData.some((tagOption) => tagOption.labelId === labelId)
+
+  const _addSearchValueToTagOptions = (isExistSearchValueTagName: boolean) => {
+    if (isExistSearchValueTagName) return
+
+    searchTagOptionData.value.push({
+      labelId: undefined,
+      labelType: undefined,
+      labelName: searchValue.value,
+      selected: false,
+      created: false
+    })
   }
 
-  const _handleChangeAndSearch = (val: string) => {
-    console.log(val)
+  const _getSearchTagData = async () => {
+    searchTagOptionData.value = []
+    let isExistSearchValueTagName = false
+
+    const [error, data] = await to(_fetchTagLibTask())
+    if (error === null && data) {
+      data.forEach((tagOption) => {
+        if (!isExistSearchValueTagName && tagOption.labelName === searchValue.value) {
+          isExistSearchValueTagName = true
+        }
+
+        const newTagOption = {
+          ...tagOption,
+          selected: _checkTagSelected(tagOption.labelId),
+          created: true
+        } as ISearchTagOption
+
+        searchTagOptionData.value.push(newTagOption)
+      })
+    }
+
+    await _addSearchValueToTagOptions(isExistSearchValueTagName)
+    openArrowMenu.value = true
+  }
+
+  const _fetchTagLibTaskDebounce = debounce(_getSearchTagData, 5e2)
+  const _handleSearch = (searchVal: string, e: InputEvent | CompositionEvent) => {
+    searchValue.value = searchVal.trim()
+
+    if (searchValue.value.length === 0) {
+      searchTagOptionData.value = []
+      return
+    }
+
+    switch (e.type) {
+      case 'input':
+        // debounce
+        _fetchTagLibTaskDebounce()
+        break
+      case 'compositionend':
+        // not debounce
+        _getSearchTagData()
+        break
+      default:
+        // debounce
+        _fetchTagLibTaskDebounce()
+    }
   }
 
   onMounted(() => {
@@ -34,5 +95,18 @@ export const useSearchTag = (
     }
   })
 
-  return [selectValue, readonly(openArrowMenu)]
+  watch(props.selectedData, () => {
+    if (!searchTagOptionData.value.length) return
+
+    searchTagOptionData.value.forEach((option) => {
+      if (_checkTagSelected(option.labelId)) {
+        Object.assign(option, {
+          selected: true,
+          created: true
+        })
+      }
+    })
+  })
+
+  return [searchValue, searchTagOptionData, openArrowMenu]
 }

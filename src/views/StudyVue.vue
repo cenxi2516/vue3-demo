@@ -2,7 +2,7 @@
   <div class="main">
     <a-select
       class="search-tag-area w-full !mb-15px"
-      v-bind="DEFAULT_SEARCH_SELECT_PROPRS"
+      v-bind="{...DEFAULT_SEARCH_SELECT_PROPRS, getPopupContainer: undefined}"
       :open="open"
       v-model:value="value"
       @search="handleSearch"

@@ -10,7 +10,7 @@ import { readonly, ref } from 'vue'
  */
 export const useInputListener = (
   inputElement: HTMLInputElement,
-  handler: (inputValue: string, e?: KeyboardEvent) => void,
+  handler: (inputValue: string, e: InputEvent | CompositionEvent) => void,
   maxInputLength?: number
 ) => {
   const isComposing = ref(false)
@@ -21,7 +21,7 @@ export const useInputListener = (
     maxInputLength
   )
 
-  const _executeHandlerTask = async (e: KeyboardEvent) => {
+  const _executeHandlerTask = async (e: InputEvent | CompositionEvent) => {
     const inputValue = _getInputValue(e)
     newInputValue.value = inputValue
 
@@ -31,15 +31,15 @@ export const useInputListener = (
     }
   }
 
-  useEventListener(inputElement, 'compositionstart', (e: KeyboardEvent) => {
+  useEventListener(inputElement, 'compositionstart', (e: CompositionEvent) => {
     isComposing.value = true
   })
 
-  useEventListener(inputElement, 'compositionupdate', (e: KeyboardEvent) => {
+  useEventListener(inputElement, 'compositionupdate', (e: CompositionEvent) => {
     isComposing.value = true
   })
 
-  useEventListener(inputElement, 'input', async (e: KeyboardEvent) => {
+  useEventListener(inputElement, 'input', async (e: InputEvent) => {
     overInputTip()
 
     if (!isComposing.value && !isOverMaxInputLength.value) {
@@ -47,7 +47,7 @@ export const useInputListener = (
     }
   })
 
-  useEventListener(inputElement, 'compositionend', async (e: KeyboardEvent) => {
+  useEventListener(inputElement, 'compositionend', async (e: CompositionEvent) => {
     isComposing.value = false
     await overInputTip()
 
@@ -55,7 +55,7 @@ export const useInputListener = (
   })
 }
 
-const _getInputValue = (e: KeyboardEvent): string => {
+const _getInputValue = (e: InputEvent | CompositionEvent): string => {
   const inputelement = e.target
   if (inputelement instanceof HTMLInputElement) {
     return inputelement.value

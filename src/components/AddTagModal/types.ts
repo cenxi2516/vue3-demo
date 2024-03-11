@@ -44,7 +44,10 @@ export enum AddTagTypeEnum {
   SEARCH_CREATE = 2
 }
 
-export interface ISearchSelectOption extends IRESTagItem {
-  selected: boolean
-  created: boolean
+export interface ISearchTagOption {
+  labelId?: number
+  labelType?: LabelTypeEnum
+  labelName: string
+  selected: boolean // true already selected，false not selected
+  created: boolean // true already created, false not created
 }
