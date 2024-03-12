@@ -89,6 +89,7 @@ const handleSelect = (selVal: string) => {
     if (selectOptionItem) {
       selectOptionItem.selected = true
     }
+    closeArrowMenu()
   }
 }
 
