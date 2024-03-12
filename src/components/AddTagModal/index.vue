@@ -90,6 +90,7 @@ const handleCancel = () => {
     closeModal(false)
   }
 }
+
 </script>
 
 <style lang="scss" scoped></style>

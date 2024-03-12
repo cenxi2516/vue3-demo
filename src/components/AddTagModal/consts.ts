@@ -113,3 +113,5 @@ export const CreateTagTypeAndValueMap = {
 }
 
 export const MAX_SEARCH_TEXT_LENGTH = 50
+
+export const SCROLL_BUFFER_SIZE = 40

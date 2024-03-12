@@ -1,6 +1,6 @@
 import { queryCommonTagList, type IRESTagItem } from '@/api/tag'
 import { useExecuteRequest } from '@/hooks'
-import { omit } from 'lodash-es'
+import { cloneDeep, omit } from 'lodash-es'
 import { ref, watch, type Ref } from 'vue'
 import { DEFAULT_COMMON_TAG_DATA, DEFAULT_COMMON_TAG_SIZE, LabelTypeThemeMap } from '../consts'
 import type { TAddTagModalProps } from '../index.vue'
@@ -17,7 +17,7 @@ export const useQueryCommonTagLib = (
 ): [TReadonlyRef<boolean>, Ref<TCommonTagData>] => {
   const [loading, _fetchTask] = useExecuteRequest(() => queryCommonTagList({ size }))
 
-  const tagLibData = ref<TCommonTagData>(DEFAULT_COMMON_TAG_DATA)
+  const tagLibData = ref<TCommonTagData>(cloneDeep(DEFAULT_COMMON_TAG_DATA))
 
   const _tagLibGroupByLabelType = (tagLibList: IRESTagItem[]) => {
     tagLibList.forEach((item) => {
@@ -38,7 +38,7 @@ export const useQueryCommonTagLib = (
   }
 
   const _getCommonTagLibData = async () => {
-    tagLibData.value = DEFAULT_COMMON_TAG_DATA
+    tagLibData.value = cloneDeep(DEFAULT_COMMON_TAG_DATA)
     _tagLibGroupByLabelType(await _fetchTask().catch((err) => []))
   }
 

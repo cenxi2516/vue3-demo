@@ -107,18 +107,21 @@ export const useSearchTag = (
   }
   const [inputElementRef, setInputElementValue] = useInputElement(_handleSearch)
 
-  watch(props.selectedData, () => {
-    if (!searchTagOptionData.value.length) return
+  watch(
+    () => props.selectedData,
+    () => {
+      if (!searchTagOptionData.value.length) return
 
-    searchTagOptionData.value.forEach((option) => {
-      if (_checkTagSelected(option.labelId)) {
+      searchTagOptionData.value.forEach((option) => {
         Object.assign(option, {
-          selected: true,
-          created: true
+          selected: _checkTagSelected(option.labelId)
         })
-      }
-    })
-  })
+      })
+    },
+    {
+      immediate: true
+    }
+  )
 
   return {
     searchValue,

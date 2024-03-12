@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SearchBar from '@/components/FullSearch/SearchBar.vue'
 import useSearch from '@/components/FullSearch/useSearch'
+import { POP_MOUNT_CONTAINER_ID } from '@/consts'
 import CurdTable from '@/views/CurdTable.vue'
 import ModalDemo from '@/views/ModalDemo.vue'
 import StudyVue from '@/views/StudyVue.vue'
@@ -46,7 +47,7 @@ watch(isShow, () => {
 			</a-tab-pane>
 		</a-tabs>
 	</div>
-	<div id="main-modal-wrapper" class="!relative !overflow-visible"></div>
+	<div :id="POP_MOUNT_CONTAINER_ID" class="!relative !overflow-visible"></div>
 </template>
 
 <style lang="scss" scoped></style>

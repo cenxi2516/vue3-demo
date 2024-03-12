@@ -1,3 +1,4 @@
+import { POP_MOUNT_CONTAINER_ID } from '@/consts'
 import { useInputListener } from '@/hooks'
 import { nextTick, onMounted, ref, type Ref } from 'vue'
 import { DEFAULT_SEARCH_SELECT_PROPRS, MAX_SEARCH_TEXT_LENGTH } from '../consts'
@@ -17,7 +18,7 @@ export const useInputElement = (
 
   onMounted(() => {
     const inputElement = document.querySelector(
-      '.search-tag-area-wrapper .search-tag-area input[type=search]'
+      `#${POP_MOUNT_CONTAINER_ID} .search-tag-area-wrapper .search-tag-area input[type=search]`
     )
 
     if (inputElement instanceof HTMLInputElement) {

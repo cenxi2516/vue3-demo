@@ -2,6 +2,7 @@ import type { IRESTagItem } from '@/api/tag'
 import { ref, watch, type Ref } from 'vue'
 import { ThemeKeyAndLabelTypeMap } from '../consts'
 import { AddTagTypeEnum, type TCommonTagData } from '../types'
+import { useScrollToTop } from './../hooks'
 import type { TTagOptionItem } from './../types'
 import { convertTagOptionItemData } from './useQueryCommonTagLib'
 
@@ -95,6 +96,8 @@ export const useAddGuestTag = (
   watch([tagLibData, manualAddTagData], () => _combineSelectedTag(), {
     deep: true
   })
+
+  useScrollToTop(selectedGuestTagData)
 
   return [selectedGuestTagData, _handleSelectedTagDelete, _manualAddTag]
 }
