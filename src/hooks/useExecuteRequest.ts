@@ -1,6 +1,6 @@
 import { to } from '@/utils'
 import { readonly, ref, type Ref } from 'vue'
-import { isRequestSuccess } from '../utils'
+import { isRequestSuccess } from '@/utils'
 
 export interface IRES<T> {
   code: number

@@ -1,7 +1,7 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { createVNode, type CSSProperties } from 'vue'
 import { PresetThemeEnum } from '../BaseTag/types'
-import { CreateTagTypeEnum, LabelTypeEnum, ThemeKeyEnum, type TCommonTagData } from './types'
+import { CreateTagTypeEnum, LabelTypeEnum, type TCommonTagData, ThemeKeyEnum } from './types'
 import { getContainer } from './utils'
 
 export const DEFAULT_MODAL_PROPS = {
@@ -55,15 +55,15 @@ export const ThemeKeyAndLabelTypeMap = {
 }
 
 export const ADD_TAG_TWO_CONFIRM_CONFIG = {
-  title: `${'温馨提示'}`,
+  title: `温馨提示`,
   icon: createVNode(ExclamationCircleOutlined),
   style: { ...DEFAULT_MODAL_PROPS.style } as CSSProperties,
-  content: `${'你已添加了标签，是否添加后退出'}`,
-  okText: `${'添加并退出'}`,
-  cancelText: `${'不添加'}`
+  content: `你已添加了标签，是否添加后退出`,
+  okText: `添加并退出`,
+  cancelText: `不添加`
 }
 
-export const DEFAULT_SEARCH_SELECT_PROPRS = {
+export const DEFAULT_SEARCH_SELECT_PROPS = {
   style: {
     width: '100%'
   },

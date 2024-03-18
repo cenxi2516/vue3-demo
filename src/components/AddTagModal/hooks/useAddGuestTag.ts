@@ -1,5 +1,5 @@
 import type { IRESTagItem } from '@/api/tag'
-import { ref, watch, type Ref } from 'vue'
+import { ref, type Ref, watch } from 'vue'
 import { ThemeKeyAndLabelTypeMap } from '../consts'
 import { AddTagTypeEnum, type TCommonTagData } from '../types'
 import { useScrollToTop } from './../hooks'
@@ -35,24 +35,20 @@ export const useAddGuestTag = (
 
   const _getCommonLibTagItem = (item: TTagOptionItem) => {
     const tagClassList = tagLibData.value[ThemeKeyAndLabelTypeMap[item.theme]]
-    const tagItem = tagClassList.find((tagItem) => item.labelId === tagItem.labelId)
 
-    return tagItem
+    return tagClassList.find((tagItem) => item.labelId === tagItem.labelId)
   }
 
-  const _handleCommonLibTagDelete = async (item: TTagOptionItem) => {
+  const _handleCommonLibTagDelete = (item: TTagOptionItem) => {
     const tagItem = _getCommonLibTagItem(item)
-    if (tagItem) {
-      tagItem.selected = false
-    }
+
+    tagItem && (tagItem.selected = false)
   }
 
   const _handleManualAddTagDelete = (item: TTagOptionItem) => {
     const index = manualAddTagData.value.findIndex((tagItem) => item.labelId === tagItem.labelId)
 
-    if (index > -1) {
-      manualAddTagData.value.splice(index, 1)
-    }
+    index > -1 && manualAddTagData.value.splice(index, 1)
   }
 
   const _handleSelectedTagDelete = (item: TTagOptionItem) => {
@@ -62,9 +58,8 @@ export const useAddGuestTag = (
 
   const _handleCommonLibTagAdd = (item: TTagOptionItem) => {
     const tagItem = _getCommonLibTagItem(item)
-    if (tagItem) {
-      tagItem.selected = true
-    }
+
+    tagItem && (tagItem.selected = true)
 
     return tagItem
   }
@@ -74,9 +69,7 @@ export const useAddGuestTag = (
 
     switch (addType) {
       case AddTagTypeEnum.COMMON_LIB:
-        const tagItem = _handleCommonLibTagAdd(newItem)
-        !tagItem && manualAddTagData.value.push(newItem)
-
+        !_handleCommonLibTagAdd(newItem) && manualAddTagData.value.push(newItem)
         break
       case AddTagTypeEnum.SEARCH_CREATE:
         manualAddTagData.value.push(newItem)

@@ -4,13 +4,13 @@ import { message } from 'ant-design-vue'
 import { readonly, ref } from 'vue'
 
 /**
- * 1、Non input method not triggered compositionstart、compostionupdate、compositionend event
+ * 1、Non input method not triggered compositionstart、compositionupdate、compositionend event
  * 2、Non CJK input method only triggered input event
- * 3、input method  triggered sort：compositionstart、compostionupdate、input、compositionend
+ * 3、input method  triggered sort：compositionstart、compositionupdate、input、compositionend
  */
 export const useInputListener = (
   inputElement: HTMLInputElement,
-  handler: (inputValue: string, e: InputEvent | CompositionEvent) => void,
+  handler: (inputValue: string, e: InputEvent | CompositionEvent) => Promise<void> | void,
   maxInputLength?: number
 ) => {
   const isComposing = ref(false)
@@ -23,11 +23,11 @@ export const useInputListener = (
     await handler(_getInputValue(e), e)
   }
 
-  useEventListener(inputElement, 'compositionstart', (e: CompositionEvent) => {
+  useEventListener(inputElement, 'compositionstart', () => {
     isComposing.value = true
   })
 
-  useEventListener(inputElement, 'compositionupdate', (e: CompositionEvent) => {
+  useEventListener(inputElement, 'compositionupdate', () => {
     isComposing.value = true
   })
 
@@ -35,22 +35,22 @@ export const useInputListener = (
     overInputTip()
 
     if (!isComposing.value && !isOverMaxInputLength.value) {
-      _executeHandlerTask(e)
+      await _executeHandlerTask(e)
     }
   })
 
   useEventListener(inputElement, 'compositionend', async (e: CompositionEvent) => {
     isComposing.value = false
-    await overInputTip()
+    overInputTip()
 
-    !isOverMaxInputLength.value && _executeHandlerTask(e)
+    !isOverMaxInputLength.value && (await _executeHandlerTask(e))
   })
 }
 
 const _getInputValue = (e: InputEvent | CompositionEvent): string => {
-  const inputelement = e.target
-  if (inputelement instanceof HTMLInputElement) {
-    return inputelement.value
+  const inputElement = e.target
+  if (inputElement instanceof HTMLInputElement) {
+    return inputElement.value
   }
 
   return ''
@@ -63,11 +63,11 @@ const _useOverMaxInputLengthTip = (
   const isAlreadyTip = ref(false)
   const isOverMaxInputLength = ref(false)
 
-  if (maxInputLength && typeof maxInputLength === 'number') {
+  if (maxInputLength) {
     inputElement.maxLength = maxInputLength
   }
 
-  const __overInputTip = () => {
+  const __overInputTip = async () => {
     const inputValue = inputElement.value
     if (
       !isAlreadyTip.value &&

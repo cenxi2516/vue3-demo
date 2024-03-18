@@ -22,11 +22,4 @@ watch(isShow, () => {
   </a-config-provider>
 </template>
 
-<style lang="scss" scoped>
-#app {
-  font-family: 微软雅黑, Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-</style>
+<style lang="scss" scoped></style>

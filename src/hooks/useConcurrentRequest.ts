@@ -5,7 +5,7 @@ type Task<K> = () => Promise<K>
 class LimitConcurrentRequest<T> {
   private blockQueue: Array<ResolveFn> = [] // 阻塞队列
   private currentReqNum: number = 0 // 当前请求数
-  constructor(private maxConcurrentNum: number = 2) {
+  constructor(private readonly maxConcurrentNum: number = 2) {
     this.maxConcurrentNum = maxConcurrentNum // 最大并发数
   }
 

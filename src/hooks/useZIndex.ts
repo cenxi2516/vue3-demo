@@ -1,4 +1,4 @@
-import { nextTick, onBeforeUnmount, ref, type Component, type Ref, type ShallowRef } from 'vue'
+import { type Component, nextTick, onBeforeUnmount, ref, type Ref, type ShallowRef } from 'vue'
 
 type TDomRef = ShallowRef<HTMLElement | Component | undefined>
 type TZIndex = Ref<number>
@@ -46,7 +46,7 @@ export const useZIndex: TUseZIndexFn = (domRef: TDomRef) => {
       _updateZIndex(domRef, zIndex)
     }
 
-    nextTick(() => _setDomZIndex(domRef, isStep ? nextZIndex.value : step))
+    nextTick(() => _setDomZIndex(domRef, isStep ? nextZIndex.value : step)).then(() => {})
 
     return zIndex
   }
@@ -63,6 +63,9 @@ export const useZIndex: TUseZIndexFn = (domRef: TDomRef) => {
     })
   }
 
-  return { zIndex, increase, decrease }
+  return {
+    zIndex,
+    increase,
+    decrease
+  }
 }
-

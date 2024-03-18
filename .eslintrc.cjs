@@ -11,8 +11,5 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
-  },
-  "vue/multi-word-component-names": ["error", {
-    "ignores": ['index']
-  }]
+  }
 }

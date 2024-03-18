@@ -14,6 +14,7 @@ export const useOptionPosition = (): [
 
   const _updateModalPosition = (e: MouseEvent, markClassName: string) => {
     const targetDom = e.target
+    
     if (targetDom instanceof HTMLElement && targetDom.classList.contains(markClassName)) {
       const { left, bottom } = targetDom.getBoundingClientRect()
       topPos.value = bottom + Y_FILL_VALUE
