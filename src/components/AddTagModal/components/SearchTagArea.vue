@@ -7,7 +7,7 @@
     <a-select
       ref="selectRef"
       class="search-tag-area w-full !mb-15px"
-      v-bind="DEFAULT_SEARCH_SELECT_PROPRS"
+      v-bind="DEFAULT_SEARCH_SELECT_PROPS"
       :open="arrowMenuVisible"
       :searchValue="searchValue"
       @select="handleSelect"
@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import type { IRESTagItem } from '@/api/tag'
-import { DEFAULT_SEARCH_SELECT_PROPRS } from '@/components/AddTagModal/consts'
+import { DEFAULT_SEARCH_SELECT_PROPS } from '@/components/AddTagModal/consts'
 import { useVisible } from '@/hooks'
 import { onClickOutside } from '@vueuse/core'
 import { ref, toRaw } from 'vue'
@@ -51,6 +51,7 @@ import { useOptionPosition } from '../hooks'
 import { useSearchTag } from '../hooks/useSearchTag'
 import { AddTagTypeEnum, type TTagOptionItem } from '../types'
 import { BUBBLES_MARK_CLASS_NAME } from './../consts'
+import TagTypeModal from '@/components/AddTagModal/components/TagTypeModal.vue'
 
 export type TProps = {
   selectedData: TTagOptionItem[]
@@ -94,7 +95,7 @@ const handleSelect = (selVal: string) => {
 }
 
 const searchTagAreaRef = ref<HTMLDivElement>()
-onClickOutside(searchTagAreaRef, (e) => !visibleModal.value && closeArrowMenu())
+onClickOutside(searchTagAreaRef, () => !visibleModal.value && closeArrowMenu())
 
 const handleCloseModal = (tagData?: IRESTagItem) => {
   if (tagData) {
@@ -126,14 +127,17 @@ const [top, left, updateModalPosition] = useOptionPosition()
       }
     }
   }
+
   .search-tag-area-wrapper {
     .search-tag-area {
       input.ant-select-selection-search-input:focus {
         box-shadow: none !important;
       }
+
       input.ant-select-selection-search-input {
         font-size: 14px;
       }
+
       .ant-select-single {
         .ant-select-selector {
           .ant-select-selection-item {

@@ -25,17 +25,12 @@ const emit = defineEmits<Emits>()
 
 const treeRaw = cloneDeep(toRaw(props.columns)) // 备份
 
-console.log('前', treeRaw);
-
 // node 和 node.children 过滤、隐射加key值
 walkTree(treeRaw, (node) => {
   const { title, dataIndex, key } = node
   node.key = key || dataIndex || title
   return node
 })
-
-console.log('后', treeRaw);
-
 
 const tree = ref(treeRaw) // 维护树
 const checkedKeys = ref(treeRaw.map(({ key }) => key)) // 维护选中项

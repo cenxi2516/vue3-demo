@@ -6,7 +6,7 @@
       style="row-gap: 8px"
       :style="DEFAULT_TAG_LIST_STYLE"
     >
-      <base-tag
+      <BaseTag
         v-for="item in props.data"
         v-bind="item"
         :key="item.labelId"
@@ -20,6 +20,7 @@
 import type { TConfirmDeleteFn } from '@/components/BaseTag/types'
 import type { TTagOptionItem } from '../types'
 import { DEFAULT_TAG_LIST_STYLE } from './../consts'
+import BaseTag from '@/components/BaseTag/index.vue'
 
 const props = defineProps<{
   data: TTagOptionItem[]
@@ -30,8 +31,8 @@ const emit = defineEmits<{
 }>()
 
 const handleSelectedTagDelete = async (confirmDelete: TConfirmDeleteFn, item: TTagOptionItem) => {
-  await emit('delete', item)
-  confirmDelete()
+  emit('delete', item)
+  await confirmDelete()
 }
 </script>
 
