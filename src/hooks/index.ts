@@ -1,6 +1,11 @@
 export * from './useAvoidFnRepeatInvoke'
 export * from './useConcurrentRequest'
+export * from './useExecuteRequest'
 export * from './useExportExcelFile'
 export * from './useImmer'
+export * from './useInputListener'
 export * from './usePagination'
+export * from './useScrollTo'
+export * from './useVisible'
 export * from './useZIndex'
+
