@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="定稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="设施服务icon" transform="translate(-122.000000, -242.000000)">
+            <g id="1.Base基础/2.Icon图标/飞猪/16*16" transform="translate(122.000000, 242.000000)">
+                <g id="20*20备份-25" opacity="0" transform="translate(0.000000, 0.000000)">
+                    <g id="24*24" transform="translate(8.000000, 8.000000) rotate(-180.000000) translate(-8.000000, -8.000000) translate(-0.000000, 0.000000)">
+                        <line x1="6.13636571" y1="1.04541714" x2="6.66916571" y2="3.03193143" id="Stroke-33" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="4.4" y1="1.76459429" x2="5.42857143" y2="3.54608" id="Stroke-34" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="1.76459429" y1="4.4" x2="3.54608" y2="5.42857143" id="Stroke-35" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="1.04541714" y1="6.13636571" x2="3.03193143" y2="6.66916571" id="Stroke-36" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="1.04541714" y1="9.86363429" x2="3.03193143" y2="9.33083429" id="Stroke-37" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="1.76459429" y1="11.6" x2="3.54608" y2="10.5714286" id="Stroke-38" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="4.4" y1="14.2354057" x2="5.42857143" y2="12.45392" id="Stroke-39" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="6.13636571" y1="14.9545829" x2="6.66916571" y2="12.9680686" id="Stroke-40" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="9.86363429" y1="14.9545829" x2="9.33083429" y2="12.9680686" id="Stroke-41" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="11.6" y1="14.2354057" x2="10.5714286" y2="12.45392" id="Stroke-42" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="14.2354057" y1="11.6" x2="12.45392" y2="10.5714286" id="Stroke-43" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="14.9545829" y1="9.86363429" x2="12.9680686" y2="9.33083429" id="Stroke-44" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="14.9545829" y1="6.13636571" x2="12.9680686" y2="6.66916571" id="Stroke-45" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="14.2354057" y1="4.4" x2="12.45392" y2="5.42857143" id="Stroke-46" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="11.6" y1="1.76459429" x2="10.5714286" y2="3.54608" id="Stroke-47" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="9.86363429" y1="1.04541714" x2="9.33083429" y2="3.03193143" id="Stroke-48" stroke="#F1F1F1" stroke-width="0.5"></line>
+                        <line x1="8" y1="0.8" x2="8" y2="3.2" id="Stroke-49" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="0.8" y1="0.8" x2="4.57142857" y2="4.57142857" id="Stroke-50" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="0.8" y1="8" x2="3.2" y2="8" id="Stroke-51" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="0.8" y1="15.2" x2="4.57142857" y2="11.4285714" id="Stroke-52" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="8" y1="15.2" x2="8" y2="12.8" id="Stroke-53" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="15.2" y1="15.2" x2="11.4285714" y2="11.4285714" id="Stroke-54" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="15.2" y1="8" x2="12.8" y2="8" id="Stroke-55" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <line x1="15.2" y1="0.8" x2="11.4285714" y2="4.57142857" id="Stroke-56" stroke="#3FA8F4" stroke-width="0.5"></line>
+                        <path d="M0,16 L16,16 L16,0 L0,0 L0,16 Z M0.8,15.2 L15.2,15.2 L15.2,0.8 L0.8,0.8 L0.8,15.2 Z" id="Fill-57" fill="#F1F1F1"></path>
+                        <path d="M8,0.8 C4.02354286,0.8 0.8,4.02354286 0.8,8 C0.8,11.9764571 4.02354286,15.2 8,15.2 C11.9764571,15.2 15.2,11.9764571 15.2,8 C15.2,4.02354286 11.9764571,0.8 8,0.8 M8,0.868571429 C11.9318857,0.868571429 15.1314286,4.06811429 15.1314286,8 C15.1314286,11.9318857 11.9318857,15.1314286 8,15.1314286 C4.06811429,15.1314286 0.868571429,11.9318857 0.868571429,8 C0.868571429,4.06811429 4.06811429,0.868571429 8,0.868571429" id="Fill-58" fill="#3FA8F4"></path>
+                        <path d="M3.2,15.2 L12.8,15.2 L12.8,0.8 L3.2,0.8 L3.2,15.2 Z M3.264,15.1314286 L12.736,15.1314286 L12.736,0.868571429 L3.264,0.868571429 L3.264,15.1314286 Z" id="Fill-59" fill="#3FA8F4"></path>
+                        <path d="M2,14 L14,14 L14,2 L2,2 L2,14 Z M2.06666667,13.9333333 L13.9333333,13.9333333 L13.9333333,2.06666667 L2.06666667,2.06666667 L2.06666667,13.9333333 Z" id="Fill-60" fill="#3FA8F4"></path>
+                        <path d="M0.8,12.8 L15.2,12.8 L15.2,3.2 L0.8,3.2 L0.8,12.8 Z M0.868571429,12.736 L15.1314286,12.736 L15.1314286,3.264 L0.868571429,3.264 L0.868571429,12.736 Z" id="Fill-61" fill="#3FA8F4"></path>
+                        <path d="M0,16 L16,16 L16,0 L0,0 L0,16 Z M0.0666666667,15.9333333 L15.9333333,15.9333333 L15.9333333,0.0666666667 L0.0666666667,0.0666666667 L0.0666666667,15.9333333 Z" id="Fill-62" fill="#3FA8F4"></path>
+                    </g>
+                </g>
+                <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+                <g id="编组-7" transform="translate(1.250000, 1.250000)">
+                    <path d="M6.75,13.5 C10.4779221,13.5 13.5,10.4779221 13.5,6.75 C13.5,3.02207794 10.4779221,0 6.75,0 C3.02207794,0 0,3.02207794 0,6.75 C0,10.4779221 3.02207794,13.5 6.75,13.5 Z" id="椭圆形" stroke-opacity="0.9" stroke="#000000"></path>
+                    <g id="编组-40" transform="translate(6.784046, 6.750000) scale(1, -1) translate(-6.784046, -6.750000) translate(4.750000, 3.500000)" stroke="#171717" stroke-linecap="round">
+                        <polyline id="路径-32备份" transform="translate(0.500000, 3.000000) scale(-1, 1) translate(-0.500000, -3.000000) " points="0.5 6 0.5 4.90519886 0.5 -1.27731159e-13"></polyline>
+                        <line x1="0.568092375" y1="6" x2="4.06809238" y2="6" id="路径-32备份-2" transform="translate(2.318092, 6.000000) scale(-1, 1) translate(-2.318092, -6.000000) "></line>
+                        <line x1="0.5" y1="3.42315663" x2="3.5" y2="3.42315663" id="路径-32备份-3" transform="translate(2.000000, 3.423157) scale(-1, 1) translate(-2.000000, -3.423157) "></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
