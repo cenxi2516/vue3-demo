@@ -9,6 +9,7 @@ import { useEventListener } from '@vueuse/core'
 import { ref, watch } from 'vue'
 import AddTagModalDemo from './AddTagModalDemo.vue'
 import BaseTagDemo from './BaseTagDemo.vue'
+import SvgIconDemo from './SvgIconDemo.vue'
 
 
 const activeKey = ref('1')
@@ -44,6 +45,9 @@ watch(isShow, () => {
 			</a-tab-pane>
 			<a-tab-pane key="5" tab="新增tag弹窗" force-render>
 				<add-tag-modal-demo />
+			</a-tab-pane>
+			<a-tab-pane key="6" tab="基础Icon" force-render>
+				<SvgIconDemo />
 			</a-tab-pane>
 		</a-tabs>
 	</div>
