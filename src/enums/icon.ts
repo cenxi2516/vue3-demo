@@ -28,4 +28,6 @@ export enum PMSIconsEnum {
   GROUP_CODE_BASE = 'group_code_base', // 集团代码库
   GROUP_ROOM_RATE = 'group_room_rate', // 集团房价
   GROUP = 'group', // 编组
+  PACK_UP = 'pack_up', // 收起
+  SPREAD_OUT = 'spread_out' // 展开
 }

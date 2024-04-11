@@ -1,10 +1,11 @@
 <template>
 	<ul>
 		<li v-for="(type, key) in PMSIconsEnum" :key="key">
-			<SvgIcon :type="type" :style="{
+			<SvgIcon :type="type" origin :style="{
 				color: '#f40',
-				fontSize: '40px'
+				fontSize: '40px',
 			}"/>
+			<span>{{ type }}</span>
 		</li>
 	</ul>
 </template>
