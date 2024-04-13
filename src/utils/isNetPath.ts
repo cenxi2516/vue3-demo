@@ -1,0 +1,1 @@
+export const isNetPath = (value: string) => /^(https?):\/\//.test(value)
