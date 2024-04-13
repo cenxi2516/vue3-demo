@@ -1,7 +1,6 @@
 import router from '@/router'
 import pinia from '@/stores/pinia'
 import { type App } from 'vue'
-
 import {
   Affix,
   Alert,
@@ -33,7 +32,9 @@ import {
   Layout,
   List,
   Menu,
+  message,
   Modal,
+  notification,
   PageHeader,
   Pagination,
   Popconfirm,
@@ -54,16 +55,14 @@ import {
   Table,
   Tabs,
   Tag,
-  TimePicker,
   Timeline,
+  TimePicker,
   Tooltip,
   Transfer,
   Tree,
   TreeSelect,
   Typography,
-  Upload,
-  message,
-  notification
+  Upload
 } from 'ant-design-vue'
 
 export const globalRegister = (app: App<Element>) => {
@@ -135,10 +134,8 @@ export const globalRegister = (app: App<Element>) => {
   app.config.globalProperties.$notification = notification
 
   message.config({
-    top: `100px`,
     duration: 2,
     maxCount: 3,
-    rtl: true,
-    prefixCls: 'pms-message'
+    rtl: true
   })
 }

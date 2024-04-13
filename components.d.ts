@@ -37,6 +37,7 @@ declare module 'vue' {
     ATag: typeof import('ant-design-vue/es')['Tag']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATree: typeof import('ant-design-vue/es')['Tree']
+    BaseIcon: typeof import('./src/components/BaseIcon/index.vue')['default']
     BaseModal: typeof import('./src/components/BaseModal/index.vue')['default']
     BaseTag: typeof import('./src/components/BaseTag/index.vue')['default']
     CommonTagArea: typeof import('./src/components/AddTagModal/components/CommonTagArea.vue')['default']
@@ -49,6 +50,7 @@ declare module 'vue' {
     SearchBar: typeof import('./src/components/FullSearch/SearchBar.vue')['default']
     SearchTagArea: typeof import('./src/components/AddTagModal/components/SearchTagArea.vue')['default']
     SelectedTagArea: typeof import('./src/components/AddTagModal/components/SelectedTagArea.vue')['default']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     TagListArea: typeof import('./src/components/AddTagModal/components/TagListArea.vue')['default']
     TagTypeModal: typeof import('./src/components/AddTagModal/components/TagTypeModal.vue')['default']
   }
