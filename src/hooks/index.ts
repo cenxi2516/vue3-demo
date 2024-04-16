@@ -8,4 +8,5 @@ export * from './usePagination'
 export * from './useScrollTo'
 export * from './useVisible'
 export * from './useZIndex'
+export * from './useNetwork'
 
