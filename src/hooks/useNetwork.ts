@@ -82,7 +82,7 @@ export const useNetwork = () => {
     const connection = getConnection() as any
 
     connection &&
-    useEventListener(connection, NetWorkEventType.CHANGE, (e) => _setNetWork())
+    useEventListener(connection, NetWorkEventType.CHANGE, () => _setNetWork())
   })
 
   return _network
