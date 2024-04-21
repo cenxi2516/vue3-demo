@@ -45,6 +45,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Scroll: typeof import('./src/components/Scroll/index.vue')['default']
+    ScrollContainer: typeof import('./src/components/ScrollContainer/index.vue')['default']
     SearchAddTag: typeof import('./src/components/AddTagModal/components/SearchAddTag.vue')['default']
     SearchBar: typeof import('./src/components/FullSearch/SearchBar.vue')['default']
     SearchTagArea: typeof import('./src/components/AddTagModal/components/SearchTagArea.vue')['default']
