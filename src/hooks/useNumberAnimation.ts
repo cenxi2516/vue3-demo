@@ -4,10 +4,10 @@ export const useNumberAnimation = (to: number, from: number = 0, duration: numbe
   const _curNum = ref(from)
 
   const _speed = (to - from) / duration
-  const _startTime = Date.now()
+  const _startTime = ref(Date.now())
 
   const _run = () => {
-    const t = Date.now() - _startTime
+    const t = Date.now() - _startTime.value
 
     if (t >= duration) {
       _curNum.value = to
@@ -19,7 +19,10 @@ export const useNumberAnimation = (to: number, from: number = 0, duration: numbe
     requestAnimationFrame(_run)
   }
 
-  onMounted(() => _run())
+  onMounted(() => {
+    _startTime.value = Date.now()
+    _run()
+  })
 
   return readonly(_curNum)
 }
