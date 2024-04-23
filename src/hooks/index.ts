@@ -9,4 +9,4 @@ export * from './useScrollTo'
 export * from './useVisible'
 export * from './useZIndex'
 export * from './useNetwork'
-
+export * from './useNumberAnimation'
