@@ -1,5 +1,5 @@
 <template>
-  <div class="main">{{ curNum.toFixed(2) }}</div>
+  <div class="main text-red-600">{{ curNum.toFixed(2) }}</div>
 </template>
 
 <script setup lang="ts">

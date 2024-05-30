@@ -1,6 +1,6 @@
 import { onMounted, readonly, ref } from 'vue'
 
-export const useNumberAnimation = (to: number, from: number = 0, duration: number = 1e3) => {
+export const useNumberAnimation = (to: number, from: number = 0, duration: number = 5e2) => {
   const _curNum = ref(from)
 
   const _speed = (to - from) / duration
