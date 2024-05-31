@@ -25,17 +25,12 @@ const emit = defineEmits<Emits>()
 
 const treeRaw = cloneDeep(toRaw(props.columns)) // 备份
 
-console.log('前', treeRaw);
-
 // node 和 node.children 过滤、隐射加key值
 walkTree(treeRaw, (node) => {
   const { title, dataIndex, key } = node
   node.key = key || dataIndex || title
   return node
 })
-
-console.log('后', treeRaw);
-
 
 const tree = ref(treeRaw) // 维护树
 const checkedKeys = ref(treeRaw.map(({ key }) => key)) // 维护选中项
@@ -149,7 +144,7 @@ function findChildrenRef(tree: Tree, path: string[]): [Node[], number] {
   const { length } = path
   if (1 === length) return [tree, Number(path[0])]
   let node = tree[Number(path[0])]
-  for (let i = 1; i < length - 1; i++) {
+  for (let i = 1;i < length - 1;i++) {
     node = node.children![Number(path[i])]
   }
   return [node.children!, Number(path[length - 1])]
@@ -164,22 +159,14 @@ function findChildrenRef(tree: Tree, path: string[]): [Node[], number] {
         <a-button class="px-0" type="link" @click="reset">重置</a-button>
       </p>
     </template>
+
     <template #content>
-      <a-tree
-        class="tree-sort"
-        v-model:checkedKeys="checkedKeys"
-        @check="onCheck"
-        :tree-data="tree"
-        autoExpandParent
-        checkable
-        draggable
-        block-node
-        defaultExpandAll
-        @drop="onDrop"
-      />
+      <a-tree class="tree-sort" v-model:checkedKeys="checkedKeys" @check="onCheck" :tree-data="tree" autoExpandParent
+        checkable draggable block-node defaultExpandAll @drop="onDrop" />
     </template>
 
     <a-tooltip>
+
       <template #title>列设置</template>
       <a>
         <setting-outlined />

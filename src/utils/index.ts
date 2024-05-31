@@ -1,4 +1,6 @@
 export * from './await-to'
-export * from './calcStringSize'
+export * from './calcTextByte'
 export * from './getContainer'
-
+export * from './isRequestSuccess'
+export * from './error'
+export * from './file'
