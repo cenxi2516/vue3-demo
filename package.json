@@ -27,6 +27,7 @@
     "lodash-es": "^4.17.21",
     "lru-cache": "^10.2.0",
     "pinia": "^2.1.7",
+    "pinyin-pro": "^3.21.1",
     "qs": "^6.12.1",
     "radash": "^12.1.0",
     "vue": "^3.4.22",
@@ -55,5 +56,5 @@
     "vue-tsc": "^1.8.27",
     "windicss": "^3.5.6"
   },
-  "packageManager": "pnpm@9.1.4+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2"
+  "packageManager": "pnpm@9.2.0+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2"
 }
