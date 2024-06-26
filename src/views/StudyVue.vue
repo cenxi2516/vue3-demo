@@ -1,13 +1,7 @@
 <template>
   <div class="main text-red-600">{{ curNum.toFixed(2) }}</div>
   <div>
-    <img-view
-      :imgList="[
-        'https://picsum.photos/200/200',
-        'https://picsum.photos/300/200',
-        'https://picsum.photos/250/200'
-      ]"
-    />
+    <img-view :imgList="['https://picsum.photos/200/200']" />
   </div>
 </template>
 

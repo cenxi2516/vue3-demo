@@ -1,5 +1,5 @@
 <template>
-  <viewer :images="props.imgList" class="img-desc-box">
+  <viewer :images="props.imgList" class="img-wrap">
     <img
       v-for="(imgSrc, index) in props.imgList"
       :key="index"
@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<TImgViewProps>(), {
 </script>
 
 <style lang="scss" scoped>
-.img-desc-box {
+.img-wrap {
   width: 100%;
   height: 100%;
   overflow: auto;
