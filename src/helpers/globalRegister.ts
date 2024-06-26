@@ -65,6 +65,9 @@ import {
   message,
   notification
 } from 'ant-design-vue'
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
+
 
 export const globalRegister = (app: App<Element>) => {
   app.use(pinia)
@@ -130,6 +133,8 @@ export const globalRegister = (app: App<Element>) => {
     .use(ConfigProvider)
     .use(AutoComplete)
     .use(Typography)
+
+  app.use(Viewer)
 
   app.config.globalProperties.$message = message
   app.config.globalProperties.$notification = notification
