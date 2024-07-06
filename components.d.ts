@@ -41,6 +41,7 @@ declare module 'vue' {
     BaseTag: typeof import('./src/components/BaseTag/index.vue')['default']
     CommonTagArea: typeof import('./src/components/AddTagModal/components/CommonTagArea.vue')['default']
     CommonTagItem: (typeof import('./src/components/AddTagModal/components/CommonTagItem.vue'))['default']
+    IframeView: typeof import('./src/components/IframeView/index.vue')['default']
     ImgView: typeof import('./src/components/ImgView/index.vue')['default']
     InputSearch: (typeof import('./src/components/AddTagModal/components/InputSearch.vue'))['default']
     PdfObject: (typeof import('./src/components/PdfObject/index.vue'))['default']
