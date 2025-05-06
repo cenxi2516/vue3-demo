@@ -1,66 +1,65 @@
 <template>
-    <div>
-      <a-button @click="startVideo">
-        {{ enabled ? '暂停' : '开始' }}
-      </a-button>
-    </div>
-
-    <div>
-      <div
-        v-for="camera of cameras"
-        :key="camera.deviceId"
-        class="px-2 py-1 cursor-pointer"
-        :class="{ 'text-primary': currentCamera === camera.deviceId }"
-        @click="currentCamera = camera.deviceId"
-      >
-        {{ camera.label }}
+   <div class="flex flex-col gap-4 text-center">
+      <div>
+        <a-button @click="startVideo">
+          {{ isEnabled ? '暂停' : '开始' }}
+        </a-button>
       </div>
-    </div>
-    <div>
-      <video ref="video" muted autoplay class="h-100 w-auto" />
-    </div>
-  <div v-if="scanResult">识别结果：{{ scanResult }}</div>
+
+      <div v-if="isCanSwitchVideoType">
+        <a-button @click="switchVideoType">切换摄像头</a-button>
+      </div>
+      <div v-show="isEnabled">
+        <video ref="video" muted autoplay width="300" height="200" />
+      </div>
+      <div v-if="scanResult">识别结果：{{ scanResult }}</div>
+   </div>
 </template>
 
 <script lang="ts" setup>
-import { useDevicesList, useUserMedia } from '@vueuse/core'
-import { onBeforeUnmount, reactive, ref, shallowRef, useTemplateRef, watchEffect } from 'vue'
+import { onBeforeUnmount, ref, useTemplateRef, watchEffect } from 'vue'
 import jsQR from 'jsqr'
+import { useDeviceCamera } from '@/hooks'
 
-const currentCamera = shallowRef<string>()
-const { videoInputs: cameras } = useDevicesList({
-  requestPermissions: true,
-  onUpdated() {
-    if(!cameras.value.find(i => i.deviceId === currentCamera.value))
-      currentCamera.value = cameras.value[0]?.deviceId
-  }
-})
+const {
+  videoStream,
+  switchCamera,
+  isEnabled,
+  stopCamera,
+  switchVideoType,
+  isCanSwitchVideoType,
+  checkOrientation
+} = useDeviceCamera()
 
 const video = useTemplateRef<HTMLVideoElement>('video')
-const {
-  stream,
-  enabled
-} = useUserMedia({
-  constraints: reactive({ video: { deviceId: currentCamera } })
-})
-
 const animationMark = ref(0)
 const scanResult = ref()
 const scanQR = () => {
-  if(!enabled.value) return
+  if(!isEnabled.value) return
 
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d')
   if(!context || !video.value) return
 
+  const isLandscape = checkOrientation()
+  const {
+    width,
+    height
+  } = video.value
+  canvas.width = isLandscape ? width : height
+  canvas.height = isLandscape ? height : width
+
   context.drawImage(video.value, 0, 0, canvas.width, canvas.height)
+
   const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
   const code = jsQR(imageData.data, imageData.width, imageData.height)
   if(code) {
     scanResult.value = code.data
-    enabled.value = false
     cancelAnimationFrame(animationMark.value)
     console.log('识别到的二维码内容: ', code.data)
+    setTimeout(() => {
+      stopCamera()
+    }, 3e2)
     return
   }
   scanResult.value = ''
@@ -71,15 +70,15 @@ const scanQR = () => {
 
 const startVideo = () => {
   scanResult.value = ''
-  enabled.value = !enabled.value
-  if(enabled.value) {
+  switchCamera()
+  if(isEnabled.value) {
     cancelAnimationFrame(animationMark.value)
   }
 }
 
 watchEffect(() => {
   if(video.value) {
-    video.value.srcObject = stream.value!
+    video.value.srcObject = videoStream.value!
     scanQR()
   }
 })
