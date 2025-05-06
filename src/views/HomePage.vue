@@ -9,20 +9,25 @@ import { useEventListener } from '@vueuse/core'
 import { ref, watch } from 'vue'
 import AddTagModalDemo from './AddTagModalDemo.vue'
 import BaseTagDemo from './BaseTagDemo.vue'
+import UserMediaDemo from '@/views/userMediaDemo.vue'
+import JsQrDemo from '@/views/jsQrDemo.vue'
 
 
 const activeKey = ref('1')
-const { isShow, instance } = useSearch(SearchBar)
+const {
+  isShow,
+  instance
+} = useSearch(SearchBar)
 useEventListener(window, 'keydown', (e) => {
-	if (e.metaKey && e.key === 'k') {
-		instance.show()
-	}
+  if(e.metaKey && e.key === 'k') {
+    instance.show()
+  }
 })
 
 watch(isShow, () => {
-	console.log(isShow);
+  console.log(isShow)
 
-	if (!isShow.value) instance.destroy()
+  if(!isShow.value) instance.destroy()
 })
 
 </script>
@@ -44,6 +49,12 @@ watch(isShow, () => {
 			</a-tab-pane>
 			<a-tab-pane key="5" tab="新增tag弹窗" force-render>
 				<add-tag-modal-demo />
+			</a-tab-pane>
+      <a-tab-pane key="6" tab="视频截图" force-render>
+				<user-media-demo />
+			</a-tab-pane>
+      <a-tab-pane key="7" tab="实时监听视频流并识别二维码" force-render>
+				<js-qr-demo />
 			</a-tab-pane>
 		</a-tabs>
 	</div>
