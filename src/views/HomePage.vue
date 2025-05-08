@@ -41,20 +41,20 @@ watch(isShow, () => {
 			<a-tab-pane key="2" tab="CURD表格">
 				<CurdTable />
 			</a-tab-pane>
-			<a-tab-pane key="3" tab="Modal实例" force-render>
+			<a-tab-pane key="3" tab="Modal实例">
 				<modal-demo />
 			</a-tab-pane>
-			<a-tab-pane key="4" tab="tag封装" force-render>
+			<a-tab-pane key="4" tab="tag封装">
 				<base-tag-demo />
 			</a-tab-pane>
-			<a-tab-pane key="5" tab="新增tag弹窗" force-render>
+			<a-tab-pane key="5" tab="新增tag弹窗">
 				<add-tag-modal-demo />
 			</a-tab-pane>
-      <a-tab-pane key="6" tab="视频截图" force-render>
-				<user-media-demo />
+      <a-tab-pane key="6" tab="视频截图">
+				<user-media-demo v-if="activeKey === '6'" />
 			</a-tab-pane>
-      <a-tab-pane key="7" tab="实时监听视频流并识别二维码" force-render>
-				<js-qr-demo />
+      <a-tab-pane key="7" tab="实时监听视频流并识别二维码">
+				<js-qr-demo v-if="activeKey === '7'" />
 			</a-tab-pane>
 		</a-tabs>
 	</div>

@@ -85,6 +85,7 @@ watchEffect(() => {
 
 onBeforeUnmount(() => {
   cancelAnimationFrame(animationMark.value)
+  stopCamera()
 })
 </script>
 

@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useTemplateRef, watchEffect } from 'vue'
+import { onBeforeUnmount, ref, useTemplateRef, watchEffect } from 'vue'
 import { useDeviceCamera } from '@/hooks'
 
 const {
@@ -81,6 +81,8 @@ watchEffect(() => {
 
   video.value.srcObject = videoStream.value!
 })
+
+onBeforeUnmount(stopCamera)
 
 </script>
 <style lang="scss" scoped></style>
