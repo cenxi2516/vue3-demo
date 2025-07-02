@@ -10,6 +10,7 @@ import { ref, watch } from 'vue'
 import AddTagModalDemo from './AddTagModalDemo.vue'
 import BaseTagDemo from './BaseTagDemo.vue'
 import UserMediaDemo from '@/views/userMediaDemo.vue'
+import UserMediaCanvasDemo from './userMediaCanvasDemo.vue'
 import JsQrDemo from '@/views/jsQrDemo.vue'
 
 
@@ -55,6 +56,9 @@ watch(isShow, () => {
 			</a-tab-pane>
       <a-tab-pane key="7" tab="实时监听视频流并识别二维码">
 				<js-qr-demo v-if="activeKey === '7'" />
+			</a-tab-pane>
+       <a-tab-pane key="8" tab="canvas视频截图">
+				<user-media-canvas-demo v-if="activeKey === '8'" />
 			</a-tab-pane>
 		</a-tabs>
 	</div>
