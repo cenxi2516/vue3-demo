@@ -12,15 +12,12 @@ import BaseTagDemo from './BaseTagDemo.vue'
 import UserMediaDemo from '@/views/userMediaDemo.vue'
 import UserMediaCanvasDemo from './userMediaCanvasDemo.vue'
 import JsQrDemo from '@/views/jsQrDemo.vue'
-
+import ScanBoxDemo from '@/views/ScanBoxDemo.vue'
 
 const activeKey = ref('1')
-const {
-  isShow,
-  instance
-} = useSearch(SearchBar)
+const { isShow, instance } = useSearch(SearchBar)
 useEventListener(window, 'keydown', (e) => {
-  if(e.metaKey && e.key === 'k') {
+  if (e.metaKey && e.key === 'k') {
     instance.show()
   }
 })
@@ -28,41 +25,43 @@ useEventListener(window, 'keydown', (e) => {
 watch(isShow, () => {
   console.log(isShow)
 
-  if(!isShow.value) instance.destroy()
+  if (!isShow.value) instance.destroy()
 })
-
 </script>
 
 <template>
-	<div class="p-4">
-		<a-tabs v-model:activeKey="activeKey" class="px-10">
-			<a-tab-pane key="1" tab="Vue实验">
-				<StudyVue />
-			</a-tab-pane>
-			<a-tab-pane key="2" tab="CURD表格">
-				<CurdTable />
-			</a-tab-pane>
-			<a-tab-pane key="3" tab="Modal实例">
-				<modal-demo />
-			</a-tab-pane>
-			<a-tab-pane key="4" tab="tag封装">
-				<base-tag-demo />
-			</a-tab-pane>
-			<a-tab-pane key="5" tab="新增tag弹窗">
-				<add-tag-modal-demo />
-			</a-tab-pane>
+  <div class="p-4">
+    <a-tabs v-model:activeKey="activeKey" class="px-10">
+      <a-tab-pane key="1" tab="Vue实验">
+        <StudyVue />
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="CURD表格">
+        <CurdTable />
+      </a-tab-pane>
+      <a-tab-pane key="3" tab="Modal实例">
+        <modal-demo />
+      </a-tab-pane>
+      <a-tab-pane key="4" tab="tag封装">
+        <base-tag-demo />
+      </a-tab-pane>
+      <a-tab-pane key="5" tab="新增tag弹窗">
+        <add-tag-modal-demo />
+      </a-tab-pane>
       <a-tab-pane key="6" tab="视频截图">
-				<user-media-demo v-if="activeKey === '6'" />
-			</a-tab-pane>
+        <user-media-demo v-if="activeKey === '6'" />
+      </a-tab-pane>
       <a-tab-pane key="7" tab="实时监听视频流并识别二维码">
-				<js-qr-demo v-if="activeKey === '7'" />
-			</a-tab-pane>
-       <a-tab-pane key="8" tab="canvas视频截图">
-				<user-media-canvas-demo v-if="activeKey === '8'" />
-			</a-tab-pane>
-		</a-tabs>
-	</div>
-	<div :id="POP_MOUNT_CONTAINER_ID" class="!relative !overflow-visible"></div>
+        <js-qr-demo v-if="activeKey === '7'" />
+      </a-tab-pane>
+      <a-tab-pane key="8" tab="canvas视频截图">
+        <user-media-canvas-demo v-if="activeKey === '8'" />
+      </a-tab-pane>
+      <a-tab-pane key="9" tab="扫码盒子">
+        <scan-box-demo v-if="activeKey === '9'" :visible="activeKey === '9'" />
+      </a-tab-pane>
+    </a-tabs>
+  </div>
+  <div :id="POP_MOUNT_CONTAINER_ID" class="!relative !overflow-visible"></div>
 </template>
 
 <style lang="scss" scoped></style>

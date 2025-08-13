@@ -86,3 +86,6 @@ export interface DProps {
    */
   done: (keys: string[], row?: KV) => Promise<[boolean, string]>
 }
+
+export type TVoidFn = () => void
+export type TPromiseVoidFn = () => Promise<void>
