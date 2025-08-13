@@ -8,8 +8,7 @@ import { useVisibleInterval } from '@/hooks'
 import { useEventListener } from '@vueuse/core'
 
 const emits = defineEmits<{
-  (e: 'change', value: string): void
-  (e: 'update:value', value: string | undefined): void
+  (e: 'change', value: string, isStart?: boolean, isEnd?: boolean): void
 }>()
 
 const props = defineProps<{
@@ -66,8 +65,13 @@ useEventListener(scanInputRef, 'keydown', (e: KeyboardEvent) => {
   e.preventDefault()
   scanInputValue.value += extraKeys.includes(e.key) ? '' : e.key
 
-  emits('update:value', scanInputValue.value.trim())
-  emits('change', scanInputValue.value.trim())
+  const isInputStart = Boolean(scanInputValue.value === '' && e.key === 'Clear')
+  const isInputFinished = Boolean(scanInputValue.value && e.key === 'Clear')
+
+  emits('change', scanInputValue.value.trim(), isInputStart, isInputFinished)
+  if (isInputStart || isInputFinished) {
+    scanInputValue.value = ''
+  }
   console.log(scanInputValue.value, e.key)
 })
 
@@ -95,7 +99,6 @@ watch(
   cursor: default;
   width: 100%;
   height: 50vh;
-  resize: none;
 
   opacity: 0;
 
