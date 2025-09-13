@@ -13,8 +13,9 @@ import UserMediaDemo from '@/views/userMediaDemo.vue'
 import UserMediaCanvasDemo from './userMediaCanvasDemo.vue'
 import JsQrDemo from '@/views/jsQrDemo.vue'
 import ScanBoxDemo from '@/views/ScanBoxDemo.vue'
+import TickRadioGroupDemo from '@/views/TickRadioGroupDemo.vue'
 
-const activeKey = ref('1')
+const activeKey = ref('10')
 const { isShow, instance } = useSearch(SearchBar)
 useEventListener(window, 'keydown', (e) => {
   if (e.metaKey && e.key === 'k') {
@@ -32,6 +33,9 @@ watch(isShow, () => {
 <template>
   <div class="p-4">
     <a-tabs v-model:activeKey="activeKey" class="px-10">
+      <a-tab-pane key="10" tab="复合单选">
+        <TickRadioGroupDemo v-if="activeKey === '10'" :visible="activeKey === '10'" />
+      </a-tab-pane>
       <a-tab-pane key="1" tab="Vue实验">
         <StudyVue />
       </a-tab-pane>

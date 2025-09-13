@@ -62,5 +62,7 @@ declare module 'vue' {
     SelectedTagArea: typeof import('./src/components/AddTagModal/components/SelectedTagArea.vue')['default']
     TagListArea: typeof import('./src/components/AddTagModal/components/TagListArea.vue')['default']
     TagTypeModal: typeof import('./src/components/AddTagModal/components/TagTypeModal.vue')['default']
+    TickRadio: typeof import('./src/components/TickRadio/index.vue')['default']
+    TickRadioGroup: typeof import('./src/components/TickRadioGroup/index.vue')['default']
   }
 }
